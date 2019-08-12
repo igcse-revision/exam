@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+body {margin:0;height:2000px;}
+
+.icon-bar {
+  position: fixed;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.icon-bar-h {
+  position: fixed;
+  top: 0%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+.icon-bar-br {
+  position: fixed;
+  top: 0%;
+  right: 0%;
+  -webkit-transform: translateX(0%);
+  -ms-transform: translateX(0%);
+  transform: translateX(0%);
+}
+
+.icon-bar-bl {
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  -webkit-transform: translateX(-10%);
+  -ms-transform: translateX(-10%);
+  transform: translateX(-10%);
+}
+
+.icon-bar a, .icon-bar-h a, .icon-bar-br a, .icon-bar-bl a {
+  display: block;
+  text-align: center;
+  padding: 14px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.icon-bar-h a, .icon-bar-br a, .icon-bar-bl a{
+  float: left;
+  padding: 10px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+
+.facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.google {
+  background: #dd4b39;
+  color: white;
+}
+
+.linkedin {
+  background: #007bb5;
+  color: white;
+}
+
+.youtube {
+  background: #bb0000;
+  color: white;
+}
+
+.option1 {
+  background: #333;
+}
+
+.option2 {
+  background: #404040;
+}
+
+.text {
+  background: #55ACEE;
+}
+
+.yes {
+  background: green;
+}
+
+.sel {
+  background: #55ACEE;
+}
+
+.no {
+  background: #bb0000;
+}
+
+
+.content {
+  margin-left: 75px;
+  font-size: 30px;
+}
+
+
+
+</style>
+
+
+<script>
+
+var qNo = 1;
+var totalQs = 10;
+var data = [{"no":"0607_s18_qp_13_Q17", "ch":1, "answer":"A", "selected":"B"}, {"no":"0607_s18_qp_13_Q18", "ch":1, "answer":"C", "selected":"C"}, {"no":"0607_s18_qp_13_Q19", "ch":1, "answer":"A", "selected":"A"}];
+var marks = 0;
+
+  function keyPressed(event) {
+    var keyCode = event.which || event.keyCode;
+    
+     switch ( keyCode )
+    {
+
+      //A or a is pressed
+      case 65:
+      case 97:
+        selectAnswer("A");
+        break;
+      case 66:
+      case 98:
+        selectAnswer("B");
+        break;
+      case 67:
+      case 99:
+        selectAnswer("C");
+        break;
+      case 68:
+      case 100:
+        selectAnswer("D");
+        break;
+
+      // "N" for Next
+      case 78:
+      case 110:
+        nextQ();
+        break;
+      // "P" for Previous
+      case 80:
+      case 112:
+        prevQ();
+        break;
+        
+      case 48:
+      case 49:
+      case 50:
+      case 51:
+      case 52:
+      case 53:
+      case 54:
+      case 55:
+      case 56:
+      case 57:
+        ques = keyCode-48;
+        if(ques == 0) ques = 10;
+        console.log("Display: "+ques);
+        showQ(ques);
+        break;
+
+      case 13:
+        submitAns();
+        break;
+
+      default:
+        break;
+    }
+    
+  }
+  
+  
+  function selectAnswer(answer) {
+    data[qNo-1].selected = answer;
+    displayAnswer();
+  }
+  
+  function displayAnswer() {
+    resetAnswers();
+    var answer = data[qNo-1].selected;
+    if(answer == "") return;
+ 
+    var el = document.getElementById("answer-"+answer);
+    el.classList.toggle('sel');
+    document.getElementById("q-"+qNo).classList.add('sel');
+    
+  }
+  
+  function resetAnswers() {
+    document.getElementById("answer-A").classList.remove('sel');
+    document.getElementById("answer-B").classList.remove('sel');
+    document.getElementById("answer-C").classList.remove('sel');
+    document.getElementById("answer-D").classList.remove('sel');
+    
+  }
+  
+  function nextQ() {
+    if(qNo == totalQs) {
+      displayMessage("End of test");
+      return;
+    }
+    showQ(qNo+1);
+    
+  }
+  
+  function prevQ() {
+    if(qNo == 1) {
+      displayMessage("Begin of test");
+      return;
+    }
+
+    showQ(qNo-1);
+    
+  }
+  
+  function showQ(no) {
+    qNo = no;
+     displayAnswer();
+     
+     document.getElementById("current-q").innerHTML = qNo +" / " + totalQs;
+     document.getElementById("question").innerHTML = "<h3> Question Number: "+qNo+"</h3><p>The sticky social bar will stick to the screen when you scroll.</p>";
+  
+    startTimer();
+  }
+  
+  function listQs() {
+    
+    
+    for(var i=1; i<= totalQs; i++) {
+      document.getElementById("list-qs").innerHTML += "<a id='q-"+i+"' class='option1' onclick='showQ("+i+")'>"+i+"</a>";
+      data[i-1] = {"no":"", "ch":0, "answer":"C", "selected":""};
+    }
+  }
+  
+  function submitAns() {
+    resetAnswers();
+    
+    for(var i=0; i<data.length; i++) {
+      var item = document.getElementById("q-"+(i+1));
+      item.classList.remove('sel');
+      
+      if(data[i].answer == data[i].selected) {
+        console.log("setting green to question: "+(i+1));
+        item.classList.add('yes');
+      } else {
+        item.classList.add('no');
+      }
+
+    }
+    
+    // Remove this after testing
+    clearTimer();
+    
+  }
+  
+  function displayMessage(msg) {
+    console.log(msg);
+    
+  }
+  
+  // Load & Initialize everything here
+  function loadPage() {
+    listQs();
+    showQ(1);
+    
+    console.log("Loading ...");
+  }
+
+  var timerObj = null;
+  var seconds = 0, minutes = 0, hours = 0;
+
+  function startTimer() {
+      if(timerObj != null) return;
+    
+      timerObj = setInterval(function() {
+    
+      seconds++;
+      if(seconds == 60) {minutes++; seconds =0;}
+      if(minutes == 60) {hours++; minutes =0}
+      if(hours == 24) hours = 0;
+      document.getElementById("timer").innerHTML = ("0"+hours).slice(-2)+":"+("0"+minutes).slice(-2)+":"+("0"+seconds).slice(-2);
+        
+    }, 1000);
+  }
+  
+  function clearTimer() {
+    clearInterval(timerObj);
+    timerObj = null;
+  }
+  
+</script>
+
+
+<body onkeypress="keyPressed(event);" onload="loadPage();">
+
+
+<div class="icon-bar">
+  <a href="#" class="facebook" onclick="prevQ();"><i class="fa fa-search"></i></a>
+
+  <a class="linkedin"><i class='fa fa-arrow-left' ></i></a>
+  <a id="answer-A" class="option1" onclick="selectAnswer('A');">A</a>
+  <a id="answer-B" class="option2" onclick="selectAnswer('B');">B</a>
+  <a id="answer-C" class="option1" onclick="selectAnswer('C');">C</a>
+  <a id="answer-D" class="option2" onclick="selectAnswer('D');">D</a>
+  <a class="linkedin" onclick="nextQ();"><i class='fa fa-arrow-right' ></i></a>
+ 
+  <a class="facebook" onclick="submitAns();"><i class="fa fa-check-square-o"></i></a>
+</div>
+
+  
+<div id="list-qs" class="icon-bar-h"></div>
+  
+
+
+    <div class="icon-bar-bl">
+      <a id="current-q" class="yes">00 / 00</a>
+    </div>
+
+    <div class="icon-bar-br">
+      <a id="timer" class="facebook">00:00:00</a>
+    </div>
+
+
+<div id="question" class="content">
+  <h3>Sticky Social Bar</h3>
+  <p>The sticky social bar will stick to the screen when you scroll.</p>
+  
+  <p>Some text to enable scrolling.. .The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.</p>
+  
+  <p>Some text to enable scrolling.. .The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.</p>
+  <p>Some text to enable scrolling.. .The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.</p>
+  <p>Some text to enable scrolling.. .The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.</p>
+  <p>Some text to enable scrolling.. .The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.</p>
+  <p>Some text to enable scrolling.. .The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.</p>
+  <p>Some text to enable scrolling.. .The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.The sticky social bar will stick to the screen when you scroll.</p>
+
+</div>
+
+</body>
+</html>
