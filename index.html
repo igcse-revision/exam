@@ -96,7 +96,7 @@ body {
 .mcq-button {
   border-radius: 25px;
   border: 2px solid white;
-  padding: 2px 5px;
+  padding: 4px 7px;
   background-color: blue;
 }
 
@@ -132,11 +132,11 @@ body {
   display: block;
   text-align: center;
   padding: 12px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   transition: all 0.3s ease;
   color: white;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   float: left;
 }
@@ -208,7 +208,7 @@ body {
     max-width: 100%;
     max-height: 500px;
     overflow-y: scroll;
-    display: none;
+    display: block;
 
 }
 
@@ -277,18 +277,22 @@ body {
 <body onload="loadData();">
   
   <div style="height: 40px;"></div>
-  <div id="answer-panel" class="answer-panel"></div>
   <div id="myPad"></div>
 
   <div class="icon-bar-h">
     <a id="id-topic-menu" onclick="popup(this.id);">Topic</a>
     <a onclick="plusDivs(-1);"><i class='fas fa-angle-double-left'></i></a>
+
+<!--
     <a id="show-answer-id" onclick="showHideAnswer();" style="display: none;"><i class='fas fa-question' ></i></a>
+-->
+    <a id="show-answer-id" onclick="popup(this.id);" style="display: none; background-color: green"><i class='fas fa-question' ></i></a>
+
       <span id="show-mcq-id" style="display: none;">
-        <a name="mcq-objects" onclick="checkMCQAnswer(this, 'A');" style="padding: 5px 2px;"><i class="mcq-button" >A</i></a>
-        <a name="mcq-objects" onclick="checkMCQAnswer(this, 'B');" style="padding: 5px 2px;"><i class="mcq-button" >B</i></a>
-        <a name="mcq-objects" onclick="checkMCQAnswer(this, 'C');" style="padding: 5px 2px;"><i class="mcq-button" >C</i></a>
-        <a name="mcq-objects" onclick="checkMCQAnswer(this, 'D');" style="padding: 5px 2px;"><i class="mcq-button" >D</i></a>
+        <a name="mcq-objects" onclick="checkMCQAnswer(this, 'A');" style="padding: 10px 4px;"><i class="mcq-button" >A</i></a>
+        <a name="mcq-objects" onclick="checkMCQAnswer(this, 'B');" style="padding: 10px 4px;"><i class="mcq-button" >B</i></a>
+        <a name="mcq-objects" onclick="checkMCQAnswer(this, 'C');" style="padding: 10px 4px;"><i class="mcq-button" >C</i></a>
+        <a name="mcq-objects" onclick="checkMCQAnswer(this, 'D');" style="padding: 10px 4px;"><i class="mcq-button" >D</i></a>
       </span>
       
     <a onclick="plusDivs(1);"><i class='fas fa-angle-double-right'></i></a>
@@ -306,8 +310,18 @@ body {
   
   </div>
 
+  <!-- Spacer below end of page -->
+  <div style="height: 40px;"></div>
 
+  <div id="show-answer-id-popup" class="modal">
 
+    <div class="modal-content">
+        <span onClick="popup('show-answer-id');" class="close">&times;</span>
+
+      <div id="answer-panel" class="answer-panel"></div>
+    </div>
+  </div>
+  
   <div id="id-topic-menu-popup" class="modal">
     
     <div class="modal-content">
