@@ -274,7 +274,7 @@ body {
 
 </style>
 </head>
-<body onload="loadData();">
+<body onload="loadData();" onkeypress="keyPressed(event);">
   
   <div style="height: 40px;"></div>
   <div id="myPad"></div>
@@ -289,10 +289,10 @@ body {
     <a id="show-answer-id" onclick="popup(this.id);" style="display: none; background-color: green"><i class='fas fa-question' ></i></a>
 
       <span id="show-mcq-id" style="display: none;">
-        <a name="mcq-objects" onclick="checkMCQAnswer(this, 'A');" style="padding: 10px 4px;"><i class="mcq-button" >A</i></a>
-        <a name="mcq-objects" onclick="checkMCQAnswer(this, 'B');" style="padding: 10px 4px;"><i class="mcq-button" >B</i></a>
-        <a name="mcq-objects" onclick="checkMCQAnswer(this, 'C');" style="padding: 10px 4px;"><i class="mcq-button" >C</i></a>
-        <a name="mcq-objects" onclick="checkMCQAnswer(this, 'D');" style="padding: 10px 4px;"><i class="mcq-button" >D</i></a>
+        <a id="mcq-a" name="mcq-objects" onclick="checkMCQAnswer(this, 'A');" style="padding: 10px 4px;"><i class="mcq-button" >A</i></a>
+        <a id="mcq-b" name="mcq-objects" onclick="checkMCQAnswer(this, 'B');" style="padding: 10px 4px;"><i class="mcq-button" >B</i></a>
+        <a id="mcq-c" name="mcq-objects" onclick="checkMCQAnswer(this, 'C');" style="padding: 10px 4px;"><i class="mcq-button" >C</i></a>
+        <a id="mcq-d" name="mcq-objects" onclick="checkMCQAnswer(this, 'D');" style="padding: 10px 4px;"><i class="mcq-button" >D</i></a>
       </span>
       
     <a onclick="plusDivs(1);"><i class='fas fa-angle-double-right'></i></a>
@@ -449,6 +449,83 @@ window.onclick = function(event) {
     src.style.display = "none";
   }
 }
+
+var mcqa = document.getElementById("mcq-a");
+var mcqb = document.getElementById("mcq-b");
+var mcqc = document.getElementById("mcq-c");
+var mcqd = document.getElementById("mcq-d");
+
+function keyPressed(event) {
+    var keyCode = event.which || event.keyCode;
+    
+     switch ( keyCode )
+    {
+
+      //A or a is pressed
+      case 65:
+      case 97:
+        checkMCQAnswer(mcqa, 'A');
+        break;
+      case 66:
+      case 98:
+        checkMCQAnswer(mcqb, "B");
+        break;
+      case 67:
+      case 99:
+        checkMCQAnswer(mcqc, "C");
+        break;
+      case 68:
+      case 100:
+        checkMCQAnswer(mcqd, "D");
+        break;
+
+      // "N" or "n" or "Enter" for Next
+      case 13:
+      case 39:
+      case 78:
+      case 110:
+        plusDivs(1);
+        break;
+      // "P" for Previous
+      case 37:
+      case 80:
+      case 112:
+        plusDivs(-1);
+        break;
+        
+      case 48:
+      case 49:
+      case 50:
+      case 51:
+      case 52:
+      case 53:
+      case 54:
+      case 55:
+      case 56:
+      case 57:
+        ques = keyCode-48;
+        if(ques == 0) ques = 10;
+        console.log("Display: "+ques);
+        showQ(ques);
+        break;
+
+      // CTRL + Enter for submitAns
+      case 10:
+        //submitAns();
+        break;
+      
+      // Space  & question Mark
+      case 32:
+      case 63:
+        popup("show-answer-id");
+        break;
+
+
+      default:
+        break;
+    }
+    
+  }
 
 </script>
 
