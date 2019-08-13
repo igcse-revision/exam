@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  
+  
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="https://apis.google.com/js/platform.js"></script>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+
+    
+    <script type="text/javascript">
+      google.load('visualization', '1', {packages: ['corechart']});
+    </script>
+    
+<!--
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+-->
+
+<!-- This is for Subject-Questions-Data Popup list -->
+<script src="https://docs.google.com/uc?id=1IG-4taT18GGqZfGYJxl5VVIC9v5cbNOz"></script>
+
+
+<!-- This is for Questions Manipulation -->
+<script src="https://docs.google.com/uc?id=1d1uu39OYhnukwAugf1akDoJbMMglbG86"></script>
+
+
+<!-- This is for Touchpad Javascript -->
+<script src="https://docs.google.com/uc?id=1YbwFTnQCCPd1vsHBOwvQ2PgSROdfxJN-"></script>
+
+<!-- This is for adding Drag features  -->
+<script src="https://docs.google.com/uc?id=1H-67tEF4RmtGGS7wC-1Q8bs8bu_9yXlW"></script>
+
+
+<!-- This is for Touchpad Style -->
+<link rel="stylesheet" href="https://docs.google.com/uc?id=1DOLl0-jtgv4HZniNgQI2xsoPl1M_GkgI">
+
+
+<!-- This is for Drag Style -->
+<link rel="stylesheet" href="https://docs.google.com/uc?id=14gBbei5tIUOsyHJ_9Gtm-fmknJgtz3qH">
+
+
+<style>
+
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #000;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+
+
+.mcq-button {
+  border-radius: 25px;
+  border: 2px solid white;
+  padding: 2px 5px;
+  background-color: blue;
+}
+
+/* This is for sticky nav bar */
+
+
+.icon-bar-h  {
+  background-color: #333;
+  position: fixed;
+  top: 0%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  width: 100%;
+  color: white;
+}
+
+.icon-bar-hb {
+  background-color: #333;
+  position: fixed;
+  bottom: 0%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  width: 100%;
+  color: white;
+  font-size: 14px;
+}
+
+.icon-bar-h a, .icon-bar-hb a {
+  display: block;
+  text-align: center;
+  padding: 8px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  float: left;
+}
+
+
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 100%;
+  padding: 2px;
+  font-weight: bold;
+  color: white;
+
+}
+
+.column a {
+  float: none;
+  color: black;
+  padding: 2px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.column select {
+  float: none;
+  color: black;
+  padding: 2px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  width: 100%;
+}
+
+.column button {
+  float: none;
+  color: black;
+  padding: 2px;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+
+.column a:hover {
+  background-color: #ddd;
+}
+
+.row {
+  display: block;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+
+}
+
+
+.answer-panel {
+    overflow: hidden;
+    border:2px solid green;
+    border-radius:4px;
+    background-repeat: no-repeat;
+    max-width: 100%;
+    max-height: 500px;
+    overflow-y: scroll;
+    display: none;
+
+}
+
+
+
+@media screen and (max-width: 600px) {
+  .topnav a:nth-child(n+9) {display: none;}
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+
+
+@media screen and (max-width: 600px) {
+  .topnav.responsive {position: relative;}
+  .topnav.responsive a:nth-child(-n+6) {display: none;}
+
+  .topnav.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+#myDiv {
+  height: 10px;
+  width: 100px;
+  background: blue;
+  position: absolute;
+  top: 400px;
+}
+
+</style>
+</head>
+<body onload="loadData();">
+  
+  <div style="height: 30px;"></div>
+  <div id="answer-panel" class="answer-panel"></div>
+  <div id="myPad"></div>
+
+  <div class="icon-bar-h">
+    <a id="id-topic-menu" onclick="popup(this.id);">Topic</a>
+    <a onclick="plusDivs(-1);"><i class='fas fa-angle-double-left'></i></a>
+    <a id="show-answer-id" onclick="showHideAnswer();" style="display: none;"><i class='fas fa-question' ></i></a>
+      <span id="show-mcq-id" style="display: none;">
+        <a name="mcq-objects" onclick="checkMCQAnswer(this, 'A');" style="padding: 5px 2px;"><i class="mcq-button" >A</i></a>
+        <a name="mcq-objects" onclick="checkMCQAnswer(this, 'B');" style="padding: 5px 2px;"><i class="mcq-button" >B</i></a>
+        <a name="mcq-objects" onclick="checkMCQAnswer(this, 'C');" style="padding: 5px 2px;"><i class="mcq-button" >C</i></a>
+        <a name="mcq-objects" onclick="checkMCQAnswer(this, 'D');" style="padding: 5px 2px;"><i class="mcq-button" >D</i></a>
+      </span>
+      
+    <a onclick="plusDivs(1);"><i class='fas fa-angle-double-right'></i></a>
+    <a id="id-touch-menu" onclick="toggleTouch(this);"><i class="fa fa-edit" style="color:red;"></i></a>
+
+    <a id="id-year-menu" onclick="popup(this.id);">Year</a>
+    <a id="id-print-menu" onclick="popup(this.id);">Print</a>
+    <a id="total-questions-id" style="float:right; text-align:right; width: 15%;">0 / 0</a>
+  </div>
+
+
+  <div class="icon-bar-hb">
+     <div id="question-name-id" style="float:left; width: 25%;" >Question No</div>
+     <div id="subject-name-id" style="float:left; text-align:center; width: 60%;" >Chapter</div>
+  
+  </div>
+
+
+
+  <div id="id-topic-menu-popup" class="modal">
+    
+    <div class="modal-content">
+        <span onClick="popup('id-topic-menu');" class="close">&times;</span>
+   
+            <form name="formTopic">
+              <div class="row">
+                  <div class="column">Subjects:</div>
+                  <div class="column">
+                      <select name="subjects" onChange="setSubject(this.options[this.selectedIndex].value)" ><option value="-1">Subjects</option></select>
+                  </div>
+              </div>
+      
+              <div class="row">
+                  <div class="column">Chapters:</div>
+                  <div class="column">
+                      <select name="chapters" onChange="setChapter(this.value)"><option value="-1">Chapters</option></select>
+                  </div>
+              </div>
+      
+              <div class="row">
+                  <div class="column">Papers:</div>
+                  <div class="column">
+                      <select name="papers" onChange="setPaper(this.value)" ><option value="-1">Papers</option></select>
+                  </div>
+              </div>
+          
+              <div class="row">
+                  <div class="column">Questions:</div>
+                  <div class="column">
+                      <select name="offsets" onChange="setOffset(parseInt(this.value))" ><option value="-1">Questions</option></select>
+                  </div>
+              </div>
+          </form>
+    
+        <div class="row">
+            <div class="column" width="80%">
+                <p><button type="submit" onClick="popup('id-topic-menu'); loadQuestions();" >Load Chapter Questions</button></p>
+            </div>
+            
+        </div>
+    
+
+        
+
+    </div>
+  
+    
+  </div>
+
+  
+  <div id="id-year-menu-popup" class="modal">
+        <div class="modal-content">
+          <span onClick="popup('id-year-menu');" class="close">&times;</span>
+          <form action="" name="formYear">
+            <div class="row" >
+                <div class="column">
+                    Subjects: <select name="subjects" onChange="setSubject(this.options[this.selectedIndex].value)" ><option value="-1">Subjects</option></select>
+                    Year:<select name="years" onChange="setYear(this.value)"><option value="-1">Years</option></select>
+                    Paper:<select name="papers" onChange="setPaper(this.value)" ><option value="-1">Papers</option></select>
+                    Index:<select name="offsets" onChange="setOffset(parseInt(this.value))" ><option value="-1">Questions</option></select><br>
+                </div>
+            </div>
+        </form>
+        
+        <p><button type="submit" onClick="popup('id-year-menu');return loadQuestions(true);" >Load Yearly Questions</button></p>
+          
+        </div>
+  </div>
+
+
+  <div id="id-print-menu-popup" class="modal">
+        <div class="modal-content">
+          <span onClick="popup('id-print-menu');" class="close">&times;</span>
+        
+          <h4>Print</h4>
+          <p>To be implented soon, please revisit !.</p>
+
+        </div>
+  </div>
+  
+
+
+
+
+
+<script>
+
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+
+function popup(srcId) {
+    var popObj = document.getElementById(srcId+"-popup");
+      if(!popObj) return;
+    
+    //.style.display = "block";
+    
+    if (popObj.style.display == "block") {
+        popObj.style.display = "none";
+    } else {
+        popObj.style.display = "block";
+
+    }
+}
+
+function toggleTouch(src) {
+
+    var childNode = src.childNodes[0]
+    if (page.stylus) {
+        removeTouchListeners();
+        page.stylus = false;
+        childNode.style.color = "white";
+    } else {
+        addTouchListeners();
+        childNode.style.color = "red";
+        page.stylus = true;
+    }
+}
+
+window.onclick = function(event) {
+  var src = event.target;
+  if(src == null) return;
+  if(src.id.endsWith("-popup")) {
+    src.style.display = "none";
+  }
+}
+
+</script>
+
+</body>
+</html>
