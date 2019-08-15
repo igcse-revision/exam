@@ -148,8 +148,7 @@ body {
   width: 100%;
   padding: 2px;
   font-weight: bold;
-  color: white;
-
+  color: #000;
 }
 
 .column a {
@@ -328,12 +327,22 @@ body {
         <span onClick="popup('id-topic-menu');" class="close">&times;</span>
    
             <form name="formTopic">
+
+              <div class="row">
+                  <div class="column">Match:</div>
+                  <div class="column">
+                      <input onclick="setMatch(this.value);" type="radio" name="match" value="m0" checked> Match 1
+                      <input onclick="setMatch(this.value);" type="radio" name="match" value="m1"> Match 2
+                  </div>
+              </div>
+
               <div class="row">
                   <div class="column">Subjects:</div>
                   <div class="column">
                       <select name="subjects" onChange="setSubject(this.options[this.selectedIndex].value)" ><option value="-1">Subjects</option></select>
                   </div>
               </div>
+
       
               <div class="row">
                   <div class="column">Chapters:</div>
