@@ -523,10 +523,13 @@ function keyPressed(event) {
         //submitAns();
         break;
       
-      // Space  or question Mark or "/"
-      case 32:
+      // question Mark or "/"
       case 63:
       case 47:
+        var isMCQ = page.list[page.slideIndex-1].data.isMCQ;
+        if(isMCQ || isMCQ == "TRUE" || isMCQ == "true") {
+          break;
+        }
         popup("show-answer-id");
         break;
 
