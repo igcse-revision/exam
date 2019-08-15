@@ -95,9 +95,9 @@ body {
 
 .mcq-button {
   border-radius: 25px;
-  border: 2px solid white;
-  padding: 4px 7px;
-  background-color: blue;
+  border: 3px solid white;
+  padding: 3px 7px;
+  background-color: #31708f;
 }
 
 /* This is for sticky nav bar */
@@ -131,7 +131,7 @@ body {
 .icon-bar-h a, .icon-bar-hb a {
   display: block;
   text-align: center;
-  padding: 12px;
+  padding: 8px;
   padding-top: 8px;
   padding-bottom: 8px;
   transition: all 0.3s ease;
@@ -276,7 +276,7 @@ body {
 </head>
 <body onload="loadData();" onkeypress="keyPressed(event);">
   
-  <div style="height: 40px;"></div>
+  <div style="height: 45px;"></div>
   <div id="myPad"></div>
 
   <div class="icon-bar-h">
@@ -289,10 +289,10 @@ body {
     <a id="show-answer-id" onclick="popup(this.id);" style="display: none; background-color: green"><i class='fas fa-question' ></i></a>
 
       <span id="show-mcq-id" style="display: none;">
-        <a id="mcq-a" name="mcq-objects" onclick="checkMCQAnswer(this, 'A');" style="padding: 10px 4px;"><i class="mcq-button" >A</i></a>
-        <a id="mcq-b" name="mcq-objects" onclick="checkMCQAnswer(this, 'B');" style="padding: 10px 4px;"><i class="mcq-button" >B</i></a>
-        <a id="mcq-c" name="mcq-objects" onclick="checkMCQAnswer(this, 'C');" style="padding: 10px 4px;"><i class="mcq-button" >C</i></a>
-        <a id="mcq-d" name="mcq-objects" onclick="checkMCQAnswer(this, 'D');" style="padding: 10px 4px;"><i class="mcq-button" >D</i></a>
+        <a id="mcq-a" name="mcq-objects" onclick="checkMCQAnswer(this, 'A');" style="padding: 10px 2px;"><i class="mcq-button" >A</i></a>
+        <a id="mcq-b" name="mcq-objects" onclick="checkMCQAnswer(this, 'B');" style="padding: 10px 2px;"><i class="mcq-button" >B</i></a>
+        <a id="mcq-c" name="mcq-objects" onclick="checkMCQAnswer(this, 'C');" style="padding: 10px 2px;"><i class="mcq-button" >C</i></a>
+        <a id="mcq-d" name="mcq-objects" onclick="checkMCQAnswer(this, 'D');" style="padding: 10px 2px;"><i class="mcq-button" >D</i></a>
       </span>
       
     <a onclick="plusDivs(1);"><i class='fas fa-angle-double-right'></i></a>
@@ -506,7 +506,7 @@ function keyPressed(event) {
         ques = keyCode-48;
         if(ques == 0) ques = 10;
         console.log("Display: "+ques);
-        showQ(ques);
+        plusDivs(ques-page.slideIndex);
         break;
 
       // CTRL + Enter for submitAns
