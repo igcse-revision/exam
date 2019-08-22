@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 -->
 
-<!-- This is for Subject-Questions-Data Popup list 
+<!-- This is for Subject-Questions-Data Popup list
 <script src="https://docs.google.com/uc?id=1IG-4taT18GGqZfGYJxl5VVIC9v5cbNOz"></script>
 -->
 <script src="https://docs.google.com/uc?id=1PN0qM-uQkLj3mlRWbG9LRnAmHMn14O_V"></script>
@@ -33,6 +33,10 @@
 <!-- This is for Questions Manipulation -->
 <script src="https://docs.google.com/uc?id=1d1uu39OYhnukwAugf1akDoJbMMglbG86"></script>
 
+
+<!--
+<script src="file:///home/chronos/u-d6fe798fd77a0f748e051faceca674ad982d07a2/MyFiles/Downloads/igcse-revision/questions.js"></script>
+-->
 
 <!-- This is for Touchpad Javascript -->
 <script src="https://docs.google.com/uc?id=1YbwFTnQCCPd1vsHBOwvQ2PgSROdfxJN-"></script>
@@ -133,6 +137,7 @@ body {
 .icon-bar-h a, .icon-bar-hb a {
   display: block;
   text-align: center;
+  text-decoration: none;
   padding: 8px;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -273,6 +278,29 @@ body {
   top: 400px;
 }
 
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid blue;
+  border-right: 16px solid green;
+  border-bottom: 16px solid red;
+  border-left: 16px solid pink;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 </style>
 </head>
 <body onload="loadData();" onkeypress="keyPressed(event);">
@@ -371,14 +399,11 @@ body {
     
         <div class="row">
             <div class="column" width="80%">
-                <p><button type="submit" onClick="popup('id-topic-menu'); loadQuestions();" >Load Chapter Questions</button></p>
+                <p><button type="submit" onClick="loadQuestionsReset();" >Load Chapter Questions</button></p>
             </div>
             
         </div>
-    
-
-        
-
+  
     </div>
   
     
@@ -399,7 +424,7 @@ body {
             </div>
         </form>
         
-        <p><button type="submit" onClick="popup('id-year-menu');return loadQuestions(true);" >Load Yearly Questions</button></p>
+        <p><button type="submit" onClick="loadQuestionsReset(true);" >Load Yearly Questions</button></p>
           
         </div>
   </div>
@@ -415,7 +440,15 @@ body {
         </div>
   </div>
   
+  <div id="id-loading-menu-popup" class="modal">
+        <div class="modal-content">
+          <span onClick="popup('id-loading-menu');" class="close">&times;</span>
+        
+          <h4>Loading ...</h4>
+          <center><div class="loader"></div></center>
 
+        </div>
+  </div>
 
 
 
