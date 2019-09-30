@@ -329,18 +329,13 @@ body {
 
     <a id="id-year-menu" onclick="popup(this.id);">Year</a>
     <a id="id-print-menu" onclick="popup(this.id);">Print</a>
-    <div style="float:right; text-align:right; width: 30%;">
-        <a id="total-questions-id" style="float:right;">0 / 0</a>
-        <div id="ms-papers-id" style="float:right;"> </div>
-        <div id="qp-papers-id" style="float:right;"> </div>
-        <div id="ot-papers-id" style="float:right;"> </div>
-    </div>
+    <a id="total-questions-id" style="float:right; text-align:right; width: 15%;">0 / 0</a>
   </div>
 
 
   <div class="icon-bar-hb">
      <div id="subject-name-id" style="float:left; text-align:left; width: 75%;" >Chapter</div>
-     <div id="question-name-id" style="float:right; text-align:right; width: 25%;" >Question No</div>
+     <div id="question-name-id" style="float:left; text-align:right; width: 25%;" >Question No</div>
   
   </div>
 
@@ -572,16 +567,6 @@ function keyPressed(event) {
           break;
         }
         popup("show-answer-id");
-        break;
-
-      case 81:
-      case 113:
-        displayPaperLinks("qp");
-        break;
-
-      case 77:
-      case 109:
-        displayPaperLinks("ms");
         break;
 
 
