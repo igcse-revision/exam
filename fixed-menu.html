@@ -32,7 +32,6 @@
 
   </head>
   <body onkeypress="keyPressed(event);">
-    <p>Drive API Quickstart</p>
 
     <!--Add buttons to initiate auth sequence and sign out-->
     <button id="authorize_button" style="display: none;">Authorize</button>
@@ -324,7 +323,7 @@
       }
       
       function loadScript(url, callback) {
-          alert("Loading Script: "+url);
+          console.log("Loading Script: "+url);
         var script = document.createElement("script")
         script.type = "text/javascript";
     
