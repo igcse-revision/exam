@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
-    
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
+  <head>
+    <title>IGCSE Revision</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
   
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -19,298 +19,31 @@
     <script type="text/javascript">
       google.load('visualization', '1', {packages: ['corechart']});
     </script>
+
     
-<!--
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
--->
+    <meta charset="utf-8" />
 
-<!-- This is for Subject-Questions-Data Popup list
-<script src="https://docs.google.com/uc?id=1IG-4taT18GGqZfGYJxl5VVIC9v5cbNOz"></script>
--->
-<script src="https://docs.google.com/uc?id=1PN0qM-uQkLj3mlRWbG9LRnAmHMn14O_V"></script>
+    <script src="https://igcse-revision.github.io/exam/base64ArrayBuffer.js"></script>
 
 
-<!-- This is for Questions Manipulation -->
-<script src="https://docs.google.com/uc?id=1d1uu39OYhnukwAugf1akDoJbMMglbG86"></script>
+    <!-- This is for Touchpad Style -->
+    <link rel="stylesheet" href="https://igcse-revision.github.io/exam/touchpad.css">
+    
+    
+    <!-- This is for Drag Style -->
+    <link rel="stylesheet" href="https://igcse-revision.github.io/exam/drag.css">
 
+  </head>
+  <body onkeypress="keyPressed(event);">
 
-<!--
-<script src="file:///home/chronos/u-d6fe798fd77a0f748e051faceca674ad982d07a2/MyFiles/Downloads/igcse-revision/questions.js"></script>
--->
-
-<!-- This is for Touchpad Javascript -->
-<script src="https://docs.google.com/uc?id=1YbwFTnQCCPd1vsHBOwvQ2PgSROdfxJN-"></script>
-
-<!-- This is for adding Drag features  -->
-<script src="https://docs.google.com/uc?id=1H-67tEF4RmtGGS7wC-1Q8bs8bu_9yXlW"></script>
-
-
-<!-- This is for Touchpad Style -->
-<link rel="stylesheet" href="https://docs.google.com/uc?id=1DOLl0-jtgv4HZniNgQI2xsoPl1M_GkgI">
-
-
-<!-- This is for Drag Style -->
-<link rel="stylesheet" href="https://docs.google.com/uc?id=14gBbei5tIUOsyHJ_9Gtm-fmknJgtz3qH">
-
-
-<style>
-
-
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  margin-right: 20px;
-  margin-left: 20px;
-}
-
-
-
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-}
-
-/* The Close Button */
-.close {
-  color: #000;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-
-
-.mcq-button {
-  border-radius: 25px;
-  border: 3px solid white;
-  padding: 3px 7px;
-  background-color: #31708f;
-}
-
-/* This is for sticky nav bar */
-
-
-.icon-bar-h  {
-  background-color: #333;
-  position: fixed;
-  top: 0%;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  transform: translateX(-50%);
-  width: 100%;
-  color: white;
-}
-
-.icon-bar-hb {
-  background-color: #333;
-  position: fixed;
-  bottom: 0%;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  transform: translateX(-50%);
-  width: 100%;
-  color: white;
-  font-size: 14px;
-}
-
-.icon-bar-h a, .icon-bar-hb a {
-  display: block;
-  text-align: center;
-  text-decoration: none;
-  padding: 8px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  transition: all 0.3s ease;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  float: left;
-}
-
-
-/* Create three equal columns that floats next to each other */
-.column {
-  float: left;
-  width: 100%;
-  padding: 2px;
-  font-weight: bold;
-  color: #000;
-}
-
-.column a {
-  float: none;
-  color: black;
-  padding: 2px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
-
-.column select {
-  float: none;
-  color: black;
-  padding: 2px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-  width: 100%;
-}
-
-.column button {
-  float: none;
-  color: black;
-  padding: 2px;
-  text-decoration: none;
-  display: block;
-  text-align: center;
-  width: 100%;
-}
-
-.column a:hover {
-  background-color: #ddd;
-}
-
-.row {
-  display: block;
-  margin-left: 20px;
-  margin-right: 20px;
-}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-
-}
-
-
-.answer-panel {
-    overflow: hidden;
-    border:2px solid green;
-    border-radius:4px;
-    background-repeat: no-repeat;
-    max-width: 100%;
-    max-height: 500px;
-    overflow-y: scroll;
-    display: block;
-
-}
-
-
-
-@media screen and (max-width: 600px) {
-  .topnav a:nth-child(n+9) {display: none;}
-  .topnav a.icon {
-    float: right;
-    display: block;
-  }
-}
-
-
-
-@media screen and (max-width: 600px) {
-  .topnav.responsive {position: relative;}
-  .topnav.responsive a:nth-child(-n+6) {display: none;}
-
-  .topnav.responsive .icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-  .topnav.responsive a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
-}
-
-.tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 1;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-}
-
-#myDiv {
-  height: 10px;
-  width: 100px;
-  background: blue;
-  position: absolute;
-  top: 400px;
-}
-
-.loader {
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 16px solid blue;
-  border-right: 16px solid green;
-  border-bottom: 16px solid red;
-  border-left: 16px solid pink;
-  width: 120px;
-  height: 120px;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
-}
-
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-</style>
-</head>
-<body onload="loadData();" onkeypress="keyPressed(event);">
-  
-  <div style="height: 45px;"></div>
+    <div style="height: 45px;"></div>
   <div id="myPad"></div>
 
   <div class="icon-bar-h">
     <a id="id-topic-menu" onclick="popup(this.id);">Topic</a>
     <a onclick="plusDivs(-1);"><i class='fas fa-angle-double-left'></i></a>
+
+
 
 <!--
     <a id="show-answer-id" onclick="showHideAnswer();" style="display: none;"><i class='fas fa-question' ></i></a>
@@ -329,6 +62,12 @@ body {
 
     <a id="id-year-menu" onclick="popup(this.id);">Year</a>
     <a id="id-print-menu" onclick="popup(this.id);">Print</a>
+
+    <!--Add buttons to initiate auth sequence and sign out-->   
+    <a id="authorize_button" style="display: none;color:red;">Login</a>
+    <a id="signout_button" style="display: none;">Logout</a>
+    
+    
     <div style="float:right; text-align:right; width: 30%;">
         <a id="total-questions-id" style="float:right;">0 / 0</a>
         <div id="ms-papers-id" style="float:right;"> </div>
@@ -454,144 +193,130 @@ body {
 
         </div>
   </div>
-
-
-
-
-<script>
-
-$(document).ready(function(){
-    $('[data-toggle="popover"]').popover();
-});
-
-function popup(srcId) {
-    var popObj = document.getElementById(srcId+"-popup");
-      if(!popObj) return;
     
-    //.style.display = "block";
     
-    if (popObj.style.display == "block") {
-        popObj.style.display = "none";
-    } else {
-        popObj.style.display = "block";
-
-    }
-}
-
-function toggleTouch(src) {
-
-    var childNode = src.childNodes[0]
-    if (page.stylus) {
-        removeTouchListeners();
-        page.stylus = false;
-        childNode.style.color = "white";
-    } else {
-        addTouchListeners();
-        childNode.style.color = "red";
-        page.stylus = true;
-    }
-}
-
-window.onclick = function(event) {
-  var src = event.target;
-  if(src == null) return;
-  if(src.id.endsWith("-popup")) {
-    src.style.display = "none";
-  }
-}
-
-var mcqa = document.getElementById("mcq-a");
-var mcqb = document.getElementById("mcq-b");
-var mcqc = document.getElementById("mcq-c");
-var mcqd = document.getElementById("mcq-d");
-
-function keyPressed(event) {
-    var keyCode = event.which || event.keyCode;
     
-     switch ( keyCode )
-    {
+    
 
-      //A or a is pressed
-      case 65:
-      case 97:
-        checkMCQAnswer(mcqa, 'A');
-        break;
-      case 66:
-      case 98:
-        checkMCQAnswer(mcqb, "B");
-        break;
-      case 67:
-      case 99:
-        checkMCQAnswer(mcqc, "C");
-        break;
-      case 68:
-      case 100:
-        checkMCQAnswer(mcqd, "D");
-        break;
+    <script type="text/javascript">
+      // Client ID and API key from the Developer Console
+      var CLIENT_ID = '364879519218-p5nnfrs24cf1efg8i6av9mo3b0jf6mdk.apps.googleusercontent.com';
+      var API_KEY = 'AIzaSyDpIPPq8xmjDkKPSY4RcSzxojWUCs31tMs';
 
-      // "N" or "n" or "Enter" for Next
-      case 13:
-      case 39:
-      case 78:
-      case 110:
-        plusDivs(1);
-        break;
-      // "P" for Previous
-      case 37:
-      case 80:
-      case 112:
-        plusDivs(-1);
-        break;
-        
-      case 48:
-      case 49:
-      case 50:
-      case 51:
-      case 52:
-      case 53:
-      case 54:
-      case 55:
-      case 56:
-      case 57:
-        ques = keyCode-48;
-        if(ques == 0) ques = 10;
-        console.log("Display: "+ques);
-        plusDivs(ques-page.slideIndex);
-        break;
+      // Array of API discovery doc URLs for APIs used by the quickstart
+      var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
 
-      // CTRL + Enter for submitAns
-      case 10:
-        //submitAns();
-        break;
+      // Authorization scopes required by the API; multiple scopes can be
+      // included, separated by spaces.
+      var SCOPES = 'https://www.googleapis.com/auth/drive.readonly';
+
+      var authorizeButton = document.getElementById('authorize_button');
+      var signoutButton = document.getElementById('signout_button');
       
-      // question Mark or "/"
-      case 63:
-      case 47:
-        var isMCQ = page.list[page.slideIndex-1].data.isMCQ;
-        if(isMCQ || isMCQ == "TRUE" || isMCQ == "true") {
-          break;
+      var DRIVE_SCRIPTS = ["1PN0qM-uQkLj3mlRWbG9LRnAmHMn14O_V", "1d1uu39OYhnukwAugf1akDoJbMMglbG86", "1YbwFTnQCCPd1vsHBOwvQ2PgSROdfxJN-"
+      ,"1H-67tEF4RmtGGS7wC-1Q8bs8bu_9yXlW"];
+
+    //   var DRIVE_SCRIPTS = ["1PN0qM-uQkLj3mlRWbG9LRnAmHMn14O_V", "1d1uu39OYhnukwAugf1akDoJbMMglbG86", "1YbwFTnQCCPd1vsHBOwvQ2PgSROdfxJN-"
+    //   ,"1H-67tEF4RmtGGS7wC-1Q8bs8bu_9yXlW", "1DOLl0-jtgv4HZniNgQI2xsoPl1M_GkgI", "14gBbei5tIUOsyHJ_9Gtm-fmknJgtz3qH"];
+
+      /**
+       *  On load, called to load the auth2 library and API client library.
+       */
+      function handleClientLoad() {
+        gapi.load('client:auth2', initClient);
+      }
+
+      /**
+       *  Initializes the API client library and sets up sign-in state
+       *  listeners.
+       */
+      function initClient() {
+        gapi.client.init({
+          apiKey: API_KEY,
+          clientId: CLIENT_ID,
+          discoveryDocs: DISCOVERY_DOCS,
+          scope: SCOPES
+        }).then(function () {
+          // Listen for sign-in state changes.
+          gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+          // Handle the initial sign-in state.
+          updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+          authorizeButton.onclick = handleAuthClick;
+          signoutButton.onclick = handleSignoutClick;
+        }, function(error) {
+          appendPre(JSON.stringify(error, null, 2));
+        });
+      }
+
+      /**
+       *  Called when the signed in status changes, to update the UI
+       *  appropriately. After a sign-in, the API is called.
+       */
+      function updateSigninStatus(isSignedIn) {
+        if (isSignedIn) {
+          authorizeButton.style.display = 'none';
+          signoutButton.style.display = 'block';
+          loadDriveScripts();
+          
+        } else {
+          authorizeButton.style.display = 'block';
+          signoutButton.style.display = 'none';
         }
-        popup("show-answer-id");
-        break;
+      }
 
-      case 81:
-      case 113:
-        displayPaperLinks("qp");
-        break;
+      /**
+       *  Sign in the user upon button click.
+       */
+      function handleAuthClick(event) {
+        gapi.auth2.getAuthInstance().signIn();
+      }
 
-      case 77:
-      case 109:
-        displayPaperLinks("ms");
-        break;
+      /**
+       *  Sign out the user upon button click.
+       */
+      function handleSignoutClick(event) {
+        gapi.auth2.getAuthInstance().signOut();
+      }
 
 
-      default:
-        break;
+    function loadDriveFile(fileId, callback) {
+        var request = gapi.client.drive.files.get({
+            fileId: fileId,
+            alt: 'media'
+        })
+        request.then(function(response) {
+            if (typeof callback === "function") callback(response.body);
+        }, function(error) {
+            console.error(error)
+        })
+        return request;
+    }
+
+    function loadDriveScripts() {
+    if(DRIVE_SCRIPTS.length == 0) {
+        console.log("All scripts loaded");
+        loadData();
+        return;
     }
     
-  }
+    loadDriveFile(DRIVE_SCRIPTS.pop(), function(contents){
+        var script = document.createElement("script")
+        script.type = "text/javascript";
+        script.textContent = contents;
+        document.getElementsByTagName("head")[0].appendChild(script);
+        
+        loadDriveScripts();
+    });
+    
+    }
 
-</script>
 
-</body>
+    </script>
+
+    <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+  </body>
 </html>
