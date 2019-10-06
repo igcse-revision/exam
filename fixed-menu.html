@@ -312,7 +312,6 @@
 
         gapi.client.drive.files.get({
             fileId: '1PN0qM-uQkLj3mlRWbG9LRnAmHMn14O_V',
-            fields: 'webContentLink'
         }).then(function(success){
             var webContentLink = success.result.webContentLink; //the link is in the success.result object
             console.log("Web Content Link: "+webContentLink);
