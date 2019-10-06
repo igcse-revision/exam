@@ -281,13 +281,11 @@
 
 
     function loadDriveFile(fileId, callback) {
-        console.log("Loading Script ID: "+fileId);
         var request = gapi.client.drive.files.get({
             fileId: fileId,
             alt: 'media'
         })
         request.then(function(response) {
-            console.log(response); //response.body contains the string value of the file
             if (typeof callback === "function") callback(response.body);
         }, function(error) {
             console.error(error)
@@ -313,44 +311,6 @@
     
     }
 
-      
-      function loadScripts() {
-        if(DRIVE_SCRIPTS.length == 0) {
-            console.log("All scripts loaded");
-            loadData();
-            return;
-        }
-        
-        //https://drive.google.com/file/d/1gvmgmm8qzcE9PCjIFa-EMWtqJA1MFXoW/view?usp=drivesdk
-        //https://docs.google.com/uc?id=
-        //https://drive.google.com/uc?id=
-        loadScript("https://drive.google.com/uc?id="+DRIVE_SCRIPTS.pop(), function(){
-            loadScripts();
-        });
-      }
-      
-      function loadScript(url, callback) {
-          console.log("Loading Script: "+url);
-        var script = document.createElement("script")
-        script.type = "text/javascript";
-    
-        if (script.readyState){  //IE
-            script.onreadystatechange = function(){
-                if (script.readyState == "loaded" ||
-                        script.readyState == "complete"){
-                    script.onreadystatechange = null;
-                    callback();
-                }
-            };
-        } else {  //Others
-            script.onload = function(){
-                callback();
-            };
-        }
-    
-        script.src = url;
-        document.getElementsByTagName("head")[0].appendChild(script);
-      }
 
     </script>
 
