@@ -33,13 +33,6 @@
   </head>
   <body onkeypress="keyPressed(event);">
 
-
-
-
-    <pre id="content" style="white-space: pre-wrap;"></pre>
-    
-    
-    
     <div style="height: 45px;"></div>
   <div id="myPad"></div>
 
@@ -48,9 +41,6 @@
     <a onclick="plusDivs(-1);"><i class='fas fa-angle-double-left'></i></a>
 
 
-    <!--Add buttons to initiate auth sequence and sign out-->
-    <button id="authorize_button" style="display: none;">Authorize</button>
-    <button id="signout_button" style="display: none;">Sign Out</button>
 
 <!--
     <a id="show-answer-id" onclick="showHideAnswer();" style="display: none;"><i class='fas fa-question' ></i></a>
@@ -69,6 +59,12 @@
 
     <a id="id-year-menu" onclick="popup(this.id);">Year</a>
     <a id="id-print-menu" onclick="popup(this.id);">Print</a>
+
+    <!--Add buttons to initiate auth sequence and sign out-->   
+    <a id="authorize_button" style="display: none;">Authorize</a>
+    <a id="signout_button" style="display: none;">Sign Out</a>
+    
+    
     <div style="float:right; text-align:right; width: 30%;">
         <a id="total-questions-id" style="float:right;">0 / 0</a>
         <div id="ms-papers-id" style="float:right;"> </div>
@@ -281,88 +277,39 @@
         gapi.auth2.getAuthInstance().signOut();
       }
 
-      /**
-       * Append a pre element to the body containing the given message
-       * as its text node. Used to display the results of the API call.
-       *
-       * @param {string} message Text to be placed in pre element.
-       */
-      function appendPre(message) {
-        var pre = document.getElementById('content');
-        var textContent = document.createTextNode(message + '\n');
-        pre.appendChild(textContent);
-      }
 
-      /**
-       * Print files.
-       */
-      function listFiles() {
-        gapi.client.drive.files.list({
-          'pageSize': 10,
-          'fields': "nextPageToken, files(id, name, webViewLink, webContentLink)"
-        }).then(function(response) {
-          appendPre('Files:');
-          var files = response.result.files;
-          if (files && files.length > 0) {
-            for (var i = 0; i < files.length; i++) {
-              var file = files[i];
-              appendPre(file.name + ' (' + file.id + ')' + '& VL: ' + file.webViewLink + ' & WL: ' + file.webContentLink);
-            }
-          } else {
-            appendPre('No files found.');
-          }
-        });
-        
-
-        gapi.client.drive.files.get({
-            fileId: '1PN0qM-uQkLj3mlRWbG9LRnAmHMn14O_V',
+    function loadDriveFile(fileId, callback) {
+        console.log("Loading Script ID: "+fileId);
+        var request = gapi.client.drive.files.get({
+            fileId: fileId,
             alt: 'media'
-        }).then(function(success){
-            var webContentLink = success.result.webContentLink; //the link is in the success.result object
-            console.log("Web Content Link: "+webContentLink);
-            //success.result    
-        }, function(fail){
-            console.log(fail);
-            console.log('Error '+ fail.result.error.message);
-        })        
-        
-      }
-      
-      
-        function loadDriveFile(fileId, callback) {
-            console.log("Loading Script ID: "+fileId);
-            var request = gapi.client.drive.files.get({
-                fileId: fileId,
-                alt: 'media'
-            })
-            request.then(function(response) {
-                console.log(response); //response.body contains the string value of the file
-                if (typeof callback === "function") callback(response.body);
-            }, function(error) {
-                console.error(error)
-            })
-            return request;
-        }
+        })
+        request.then(function(response) {
+            console.log(response); //response.body contains the string value of the file
+            if (typeof callback === "function") callback(response.body);
+        }, function(error) {
+            console.error(error)
+        })
+        return request;
+    }
 
-      function loadDriveScripts() {
-        if(DRIVE_SCRIPTS.length == 0) {
-            console.log("All scripts loaded");
-            loadData();
-            return;
-        }
-        
-        //https://drive.google.com/file/d/1gvmgmm8qzcE9PCjIFa-EMWtqJA1MFXoW/view?usp=drivesdk
-        //https://docs.google.com/uc?id=
-        //https://drive.google.com/uc?id=
-        loadDriveFile(DRIVE_SCRIPTS.pop(), function(contents){
+    function loadDriveScripts() {
+    if(DRIVE_SCRIPTS.length == 0) {
+        console.log("All scripts loaded");
+        loadData();
+        return;
+    }
+    
+    loadDriveFile(DRIVE_SCRIPTS.pop(), function(contents){
         var script = document.createElement("script")
         script.type = "text/javascript";
         script.textContent = contents;
         document.getElementsByTagName("head")[0].appendChild(script);
-
+        
         loadDriveScripts();
-        });
-      }
+    });
+    
+    }
 
       
       function loadScripts() {
