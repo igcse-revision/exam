@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://igcse-revision.github.io/exam/drag.css">
 
   </head>
-  <body>
+  <body onkeypress="keyPressed(event);">
     <p>Drive API Quickstart</p>
 
     <!--Add buttons to initiate auth sequence and sign out-->
@@ -20,6 +20,162 @@
     <button id="signout_button" style="display: none;">Sign Out</button>
 
     <pre id="content" style="white-space: pre-wrap;"></pre>
+    
+    
+    
+    <div style="height: 45px;"></div>
+  <div id="myPad"></div>
+
+  <div class="icon-bar-h">
+    <a id="id-topic-menu" onclick="popup(this.id);">Topic</a>
+    <a onclick="plusDivs(-1);"><i class='fas fa-angle-double-left'></i></a>
+
+<!--
+    <a id="show-answer-id" onclick="showHideAnswer();" style="display: none;"><i class='fas fa-question' ></i></a>
+-->
+    <a id="show-answer-id" onclick="popup(this.id);" style="display: none; background-color: green"><i class='fas fa-question' ></i></a>
+
+      <span id="show-mcq-id" style="display: none;">
+        <a id="mcq-a" name="mcq-objects" onclick="checkMCQAnswer(this, 'A');" style="padding: 10px 2px;"><i class="mcq-button" >A</i></a>
+        <a id="mcq-b" name="mcq-objects" onclick="checkMCQAnswer(this, 'B');" style="padding: 10px 2px;"><i class="mcq-button" >B</i></a>
+        <a id="mcq-c" name="mcq-objects" onclick="checkMCQAnswer(this, 'C');" style="padding: 10px 2px;"><i class="mcq-button" >C</i></a>
+        <a id="mcq-d" name="mcq-objects" onclick="checkMCQAnswer(this, 'D');" style="padding: 10px 2px;"><i class="mcq-button" >D</i></a>
+      </span>
+      
+    <a onclick="plusDivs(1);"><i class='fas fa-angle-double-right'></i></a>
+    <a id="id-touch-menu" onclick="toggleTouch(this);"><i class="fa fa-edit" style="color:red;"></i></a>
+
+    <a id="id-year-menu" onclick="popup(this.id);">Year</a>
+    <a id="id-print-menu" onclick="popup(this.id);">Print</a>
+    <div style="float:right; text-align:right; width: 30%;">
+        <a id="total-questions-id" style="float:right;">0 / 0</a>
+        <div id="ms-papers-id" style="float:right;"> </div>
+        <div id="qp-papers-id" style="float:right;"> </div>
+        <div id="ot-papers-id" style="float:right;"> </div>
+    </div>
+  </div>
+
+
+  <div class="icon-bar-hb">
+     <div id="subject-name-id" style="float:left; text-align:left; width: 75%;" >Chapter</div>
+     <div id="question-name-id" style="float:right; text-align:right; width: 25%;" >Question No</div>
+  
+  </div>
+
+  <!-- Spacer below end of page -->
+  <div style="height: 40px;"></div>
+
+  <div id="show-answer-id-popup" class="modal">
+
+    <div class="modal-content">
+        <span onClick="popup('show-answer-id');" class="close">&times;</span>
+
+      <div id="answer-panel" class="answer-panel"></div>
+    </div>
+  </div>
+  
+  <div id="id-topic-menu-popup" class="modal">
+    
+    <div class="modal-content">
+        <span onClick="popup('id-topic-menu');" class="close">&times;</span>
+   
+            <form name="formTopic">
+
+              <div class="row">
+                  <div class="column">Match:</div>
+                  <div class="column">
+                      <input onclick="setMatch(this.value);" type="radio" name="match" value="m0" > Match 1
+                      <input onclick="setMatch(this.value);" type="radio" name="match" value="m1"> Match 2
+                      <input onclick="setMatch(this.value);" type="radio" name="match" value="m" checked> Both
+                  </div>
+              </div>
+
+              <div class="row">
+                  <div class="column">Subjects:</div>
+                  <div class="column">
+                      <select name="subjects" onChange="setSubject(this.options[this.selectedIndex].value)" ><option value="-1">Subjects</option></select>
+                  </div>
+              </div>
+
+      
+              <div class="row">
+                  <div class="column">Chapters:</div>
+                  <div class="column">
+                      <select name="chapters" onChange="setChapter(this.value)"><option value="-1">Chapters</option></select>
+                  </div>
+              </div>
+      
+              <div class="row">
+                  <div class="column">Papers:</div>
+                  <div class="column">
+                      <select name="papers" onChange="setPaper(this.value)" ><option value="-1">Papers</option></select>
+                  </div>
+              </div>
+          
+              <div class="row">
+                  <div class="column">Questions:</div>
+                  <div class="column">
+                      <select name="offsets" onChange="setOffset(parseInt(this.value))" ><option value="-1">Questions</option></select>
+                  </div>
+              </div>
+          </form>
+    
+        <div class="row">
+            <div class="column" width="80%">
+                <p><button type="submit" onClick="loadQuestionsReset();" >Load Chapter Questions</button></p>
+            </div>
+            
+        </div>
+  
+    </div>
+  
+    
+  </div>
+
+  
+  <div id="id-year-menu-popup" class="modal">
+        <div class="modal-content">
+          <span onClick="popup('id-year-menu');" class="close">&times;</span>
+          <form action="" name="formYear">
+            <div class="row" >
+                <div class="column">
+                    Subjects: <select name="subjects" onChange="setSubject(this.options[this.selectedIndex].value)" ><option value="-1">Subjects</option></select>
+                    Year:<select name="years" onChange="setYear(this.value)"><option value="-1">Years</option></select>
+                    Paper:<select name="papers" onChange="setPaper(this.value)" ><option value="-1">Papers</option></select>
+                    Index:<select name="offsets" onChange="setOffset(parseInt(this.value))" ><option value="-1">Questions</option></select><br>
+                </div>
+            </div>
+        </form>
+        
+        <p><button type="submit" onClick="loadQuestionsReset(true);" >Load Yearly Questions</button></p>
+          
+        </div>
+  </div>
+
+
+  <div id="id-print-menu-popup" class="modal">
+        <div class="modal-content">
+          <span onClick="popup('id-print-menu');" class="close">&times;</span>
+        
+          <h4>Print</h4>
+          <p>To be implented soon, please revisit !.</p>
+
+        </div>
+  </div>
+  
+  <div id="id-loading-menu-popup" class="modal">
+        <div class="modal-content">
+          <span onClick="popup('id-loading-menu');" class="close">&times;</span>
+        
+          <h4>Loading ...</h4>
+          <center><div class="loader"></div></center>
+
+        </div>
+  </div>
+    
+    
+    
+    
 
     <script type="text/javascript">
       // Client ID and API key from the Developer Console
