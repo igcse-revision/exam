@@ -27,6 +27,9 @@
 
       var authorizeButton = document.getElementById('authorize_button');
       var signoutButton = document.getElementById('signout_button');
+      
+      var DRIVE_SCRIPTS = ["1PN0qM-uQkLj3mlRWbG9LRnAmHMn14O_V", "1d1uu39OYhnukwAugf1akDoJbMMglbG86", "1YbwFTnQCCPd1vsHBOwvQ2PgSROdfxJN-"
+      ,"1H-67tEF4RmtGGS7wC-1Q8bs8bu_9yXlW", "1DOLl0-jtgv4HZniNgQI2xsoPl1M_GkgI", "14gBbei5tIUOsyHJ_9Gtm-fmknJgtz3qH"];
 
       /**
        *  On load, called to load the auth2 library and API client library.
@@ -66,7 +69,9 @@
         if (isSignedIn) {
           authorizeButton.style.display = 'none';
           signoutButton.style.display = 'block';
+          loadScripts();
           listFiles();
+          
         } else {
           authorizeButton.style.display = 'block';
           signoutButton.style.display = 'none';
@@ -118,6 +123,40 @@
             appendPre('No files found.');
           }
         });
+      }
+      
+      function loadScripts() {
+        if(DRIVE_SCRIPTS.length == 0) {
+            console.log("All scripts loaded");
+            return;
+        }
+        
+        loadScript("https://docs.google.com/uc?id="+DRIVE_SCRIPTS.pop(), function(){
+            loadScripts();
+        });
+      }
+      
+      function loadScript(url, callback) {
+          console.log("Loading Script: "+url);
+        var script = document.createElement("script")
+        script.type = "text/javascript";
+    
+        if (script.readyState){  //IE
+            script.onreadystatechange = function(){
+                if (script.readyState == "loaded" ||
+                        script.readyState == "complete"){
+                    script.onreadystatechange = null;
+                    callback();
+                }
+            };
+        } else {  //Others
+            script.onload = function(){
+                //callback();
+            };
+        }
+    
+        script.src = url;
+        document.getElementsByTagName("head")[0].appendChild(script);
       }
 
     </script>
