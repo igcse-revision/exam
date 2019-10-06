@@ -317,7 +317,9 @@
             return;
         }
         
-        loadScript("https://docs.google.com/uc?id="+DRIVE_SCRIPTS.pop(), function(){
+        //https://drive.google.com/file/d/1gvmgmm8qzcE9PCjIFa-EMWtqJA1MFXoW/view?usp=drivesdk
+        //https://docs.google.com/uc?id=
+        loadScript("https://drive.google.com/file/d/"+DRIVE_SCRIPTS.pop()+"/view?usp=drivesdk", function(){
             loadScripts();
         });
       }
