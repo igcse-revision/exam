@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>IGCSE Revision</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
+<head>
+    
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
   
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -19,304 +19,500 @@
     <script type="text/javascript">
       google.load('visualization', '1', {packages: ['corechart']});
     </script>
-
     
-    <meta charset="utf-8" />
-
-    <script src="https://igcse-revision.github.io/exam/base64ArrayBuffer.js"></script>
-
-
-    <!-- This is for Touchpad Style -->
-    <link rel="stylesheet" href="https://igcse-revision.github.io/exam/touchpad.css">
-    
-    
-    <!-- This is for Drag Style -->
-    <link rel="stylesheet" href="https://igcse-revision.github.io/exam/drag.css">
-
-  </head>
-  <body onkeypress="keyPressed(event);">
-
-    <div style="height: 45px;"></div>
-  <div id="myPad"></div>
-
-  <div class="icon-bar-h">
-    <a id="id-topic-menu" onclick="popup(this.id);">Topic</a>
-    <a onclick="plusDivs(-1);"><i class='fas fa-angle-double-left'></i></a>
-
-
-
 <!--
-    <a id="show-answer-id" onclick="showHideAnswer();" style="display: none;"><i class='fas fa-question' ></i></a>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 -->
-    <a id="show-answer-id" onclick="popup(this.id);" style="display: none; background-color: green"><i class='fas fa-question' ></i></a>
 
-      <span id="show-mcq-id" style="display: none;">
-        <a id="mcq-a" name="mcq-objects" onclick="checkMCQAnswer(this, 'A');" style="padding: 10px 2px;"><i class="mcq-button" >A</i></a>
-        <a id="mcq-b" name="mcq-objects" onclick="checkMCQAnswer(this, 'B');" style="padding: 10px 2px;"><i class="mcq-button" >B</i></a>
-        <a id="mcq-c" name="mcq-objects" onclick="checkMCQAnswer(this, 'C');" style="padding: 10px 2px;"><i class="mcq-button" >C</i></a>
-        <a id="mcq-d" name="mcq-objects" onclick="checkMCQAnswer(this, 'D');" style="padding: 10px 2px;"><i class="mcq-button" >D</i></a>
-      </span>
-      
+<!-- This is for Subject-Questions-Data Popup list -->
+<script src="https://docs.google.com/uc?id=1IG-4taT18GGqZfGYJxl5VVIC9v5cbNOz"></script>
+
+
+<!-- This is for Questions Manipulation -->
+<script src="https://docs.google.com/uc?id=1d1uu39OYhnukwAugf1akDoJbMMglbG86"></script>
+
+
+<!-- This is for Touchpad Javascript -->
+<script src="https://docs.google.com/uc?id=1YbwFTnQCCPd1vsHBOwvQ2PgSROdfxJN-"></script>
+
+<!-- This is for adding Drag features  -->
+<script src="https://docs.google.com/uc?id=1H-67tEF4RmtGGS7wC-1Q8bs8bu_9yXlW"></script>
+
+
+<!-- This is for Touchpad Style -->
+<link rel="stylesheet" href="https://docs.google.com/uc?id=1DOLl0-jtgv4HZniNgQI2xsoPl1M_GkgI">
+
+
+<!-- This is for Drag Style -->
+<link rel="stylesheet" href="https://docs.google.com/uc?id=14gBbei5tIUOsyHJ_9Gtm-fmknJgtz3qH">
+
+
+<style>
+
+/**
+
+div.scrollMeOnly::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+}
+div.scrollMeOnly::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+**/
+
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+  cursor: pointer;
+  
+  
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 12px;
+  text-decoration: none;
+  font-size: 15px;
+  
+  
+}
+
+
+.active {
+  background-color: #4CAF50;
+  color: white;
+  display: block;
+}
+
+.pop-active {
+  background-color: #4CAF50;
+  color: white;
+  display: block;
+  padding: 14px 12px;
+  
+
+}
+
+.pop-inactive {
+  display: none;
+  padding: 14px 12px;
+}
+
+.topnav .icon {
+  display: none;
+}
+
+.mcq-button {
+  border-radius: 25px; border: 3px solid white;padding: 2px 5px;background-color: blue;
+}
+
+/* This is for sticky nav bar */
+.icon-bar {
+  position: fixed;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.icon-bar-h {
+  position: fixed;
+  bottom: 0%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+.icon-bar-h a {
+  display: block;
+  text-align: center;
+  padding: 14px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.yes {
+  background: green;
+}
+
+
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 100%;
+  padding: 2px;
+  font-weight: bold;
+  color: white;
+
+}
+
+.column a {
+  float: none;
+  color: black;
+  padding: 2px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.column select {
+  float: none;
+  color: black;
+  padding: 2px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  width: 100%;
+}
+
+.column button {
+  float: none;
+  color: black;
+  padding: 2px;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+
+.column a:hover {
+  background-color: #ddd;
+}
+
+.row {
+  display: block;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+
+}
+
+.messagebar {
+  overflow: hidden;
+  background-color: #4CAF50;
+  width: ;: 100%;
+}
+
+.answer-panel {
+    overflow: hidden;
+    border:2px solid green;
+    border-radius:4px;
+    background-repeat: no-repeat;
+    max-width: 100%;
+    max-height: 500px;
+    overflow-y: scroll;
+    display: none;
+}
+
+.messagebar-content {
+  float:left; width: 40%; background-color: #4CAF50;
+  font-size: 14px;
+  color: white;
+  font-weight: bold;
+}
+
+
+@media screen and (max-width: 600px) {
+  .topnav a:nth-child(n+9) {display: none;}
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+
+
+@media screen and (max-width: 600px) {
+  .topnav.responsive {position: relative;}
+  .topnav.responsive a:nth-child(-n+6) {display: none;}
+
+  .topnav.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+#myDiv {
+  height: 10px;
+  width: 100px;
+  background: blue;
+  position: absolute;
+  top: 400px;
+}
+
+.answer {
+  margin: auto;
+  height: 15px;
+  width: 15px;
+  padding: 2px;
+  text-align: center;
+  border: 2px solid white;
+  border-radius: 50%;
+  font-weight: bold;
+  color: white;
+  font-size: 12px;
+  display: inline-block;
+}
+
+.green {
+  background-color: green;
+}
+
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+}
+
+</style>
+</head>
+<body onload="loadData();">
+
+<div class="topnav" id="myTopnav">
+  <a id="id-topic-menu" onclick="popup(this.id);">Topic</a>
+  
+  <a onclick="plusDivs(-1);"><i class='fas fa-angle-double-left'></i></a>
+  
+  <a id="show-answer-id" onclick="showHideAnswer();" style="display: none;"><i class='fas fa-question' ></i></a>
+
+    <span id="show-mcq-id" style="display: none;">
+      <a name="mcq-objects" onclick="checkMCQAnswer(this, 'A');" style="padding: 14px 2px;"><i class="mcq-button" >A</i></a>
+      <a name="mcq-objects" onclick="checkMCQAnswer(this, 'B');" style="padding: 14px 2px;"><i class="mcq-button" >B</i></a>
+      <a name="mcq-objects" onclick="checkMCQAnswer(this, 'C');" style="padding: 14px 2px;"><i class="mcq-button" >C</i></a>
+      <a name="mcq-objects" onclick="checkMCQAnswer(this, 'D');" style="padding: 14px 2px;"><i class="mcq-button" >D</i></a>
+    </span>
+    
     <a onclick="plusDivs(1);"><i class='fas fa-angle-double-right'></i></a>
     <a id="id-touch-menu" onclick="toggleTouch(this);"><i class="fa fa-edit" style="color:red;"></i></a>
 
+
+    <a onclick="scrollNow(event, 300);" style="float:right;"><i class='fas fa-angle-double-down' ></i></a>
+    <a onclick="scrollNow(event, -300);" style="float:right;"><i class='fas fa-angle-double-up' ></i></a>
     <a id="id-year-menu" onclick="popup(this.id);">Year</a>
-    <a id="id-print-menu" onclick="popup(this.id);">Print</a>
 
-    <!--Add buttons to initiate auth sequence and sign out-->   
-    <a id="authorize_button" style="display: none;color:red;">Login</a>
-    <a id="signout_button" style="display: none;">Logout</a>
-    
-    
-    <div style="float:right; text-align:right; width: 30%;">
-        <a id="total-questions-id" style="float:right;">0 / 0</a>
-        <div id="ms-papers-id" style="float:right;"> </div>
-        <div id="qp-papers-id" style="float:right;"> </div>
-        <div id="ot-papers-id" style="float:right;"> </div>
-    </div>
-  </div>
-
-
-  <div class="icon-bar-hb">
-     <div id="subject-name-id" style="float:left; text-align:left; width: 75%;" >Chapter</div>
-     <div id="question-name-id" style="float:right; text-align:right; width: 25%;" >Question No</div>
+  <a id="id-bug-menu" onclick="popup(this.id);">Bug</a>
+  <a id="id-print-menu" onclick="popup(this.id);">Print</a>
   
-  </div>
+  <a href="javascript:void(0);" style="float:right;" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+</div>
 
-  <!-- Spacer below end of page -->
-  <div style="height: 40px;"></div>
+<div class="messagebar">
+   <div id="question-name-id" style="float:left; width: 25%;" class="messagebar-content">Question No</div>
+   <div id="quiz-answer-id" style="float:left; width: 40%;" class="messagebar-content">
+         <div class="answer">40</div>
+        <div class="answer green">1</div>
+        <div class="answer red">42</div>
+   </div>
+   <div id="subject-name-id" style="float:left; text-align:center; width: 35%;" class="messagebar-content">Chapter</div>
+   <div id="total-questions-id" style="float:right; text-align:right; width: 15%;" class="messagebar-content">0 / 0</div>
+</div>
 
-  <div id="show-answer-id-popup" class="modal">
 
-    <div class="modal-content">
-        <span onClick="popup('show-answer-id');" class="close">&times;</span>
+<div id="id-topic-menu-popup" class="pop-inactive">
+    <form name="formTopic">
+        <div class="row">
+            <div class="column">Subjects:</div>
+            <div class="column">
+                <select name="subjects" onChange="setSubject(this.options[this.selectedIndex].value)" ><option value="-1">Subjects</option></select>
+            </div>
+        </div>
 
-      <div id="answer-panel" class="answer-panel"></div>
-    </div>
-  </div>
-  
-  <div id="id-topic-menu-popup" class="modal">
+        <div class="row">
+            <div class="column">Chapters:</div>
+            <div class="column">
+                <select name="chapters" onChange="setChapter(this.value)"><option value="-1">Chapters</option></select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column">Papers:</div>
+            <div class="column">
+                <select name="papers" onChange="setPaper(this.value)" ><option value="-1">Papers</option></select>
+            </div>
+        </div>
     
-    <div class="modal-content">
-        <span onClick="popup('id-topic-menu');" class="close">&times;</span>
-   
-            <form name="formTopic">
-
-              <div class="row">
-                  <div class="column">Match:</div>
-                  <div class="column">
-                      <input onclick="setMatch(this.value);" type="radio" name="match" value="m0" > Match 1
-                      <input onclick="setMatch(this.value);" type="radio" name="match" value="m1"> Match 2
-                      <input onclick="setMatch(this.value);" type="radio" name="match" value="m" checked> Both
-                  </div>
-              </div>
-
-              <div class="row">
-                  <div class="column">Subjects:</div>
-                  <div class="column">
-                      <select name="subjects" onChange="setSubject(this.options[this.selectedIndex].value)" ><option value="-1">Subjects</option></select>
-                  </div>
-              </div>
-
-      
-              <div class="row">
-                  <div class="column">Chapters:</div>
-                  <div class="column">
-                      <select name="chapters" onChange="setChapter(this.value)"><option value="-1">Chapters</option></select>
-                  </div>
-              </div>
-      
-              <div class="row">
-                  <div class="column">Papers:</div>
-                  <div class="column">
-                      <select name="papers" onChange="setPaper(this.value)" ><option value="-1">Papers</option></select>
-                  </div>
-              </div>
-          
-              <div class="row">
-                  <div class="column">Questions:</div>
-                  <div class="column">
-                      <select name="offsets" onChange="setOffset(parseInt(this.value))" ><option value="-1">Questions</option></select>
-                  </div>
-              </div>
-          </form>
+        <div class="row">
+            <div class="column">Questions:</div>
+            <div class="column">
+                <select name="offsets" onChange="setOffset(parseInt(this.value))" ><option value="-1">Questions</option></select>
+            </div>
+        </div>
+    </form>
     
         <div class="row">
             <div class="column" width="80%">
-                <p><button type="submit" onClick="loadQuestionsReset();" >Load Chapter Questions</button></p>
+                <p><button type="submit" onClick="popup('id-topic-menu'); loadQuestions();" >Load Chapter Questions</button></p>
             </div>
-            
+            <p></p>
         </div>
-  
-    </div>
-  
     
-  </div>
+</div>
 
-  
-  <div id="id-year-menu-popup" class="modal">
-        <div class="modal-content">
-          <span onClick="popup('id-year-menu');" class="close">&times;</span>
-          <form action="" name="formYear">
-            <div class="row" >
-                <div class="column">
-                    Subjects: <select name="subjects" onChange="setSubject(this.options[this.selectedIndex].value)" ><option value="-1">Subjects</option></select>
-                    Year:<select name="years" onChange="setYear(this.value)"><option value="-1">Years</option></select>
-                    Paper:<select name="papers" onChange="setPaper(this.value)" ><option value="-1">Papers</option></select>
-                    Index:<select name="offsets" onChange="setOffset(parseInt(this.value))" ><option value="-1">Questions</option></select><br>
+
+<div id="id-year-menu-popup" class="pop-inactive">
+            <form action="" name="formYear">
+                <div class="row" >
+                    <div class="column">
+                        Subjects: <select name="subjects" onChange="setSubject(this.options[this.selectedIndex].value)" ><option value="-1">Subjects</option></select>
+                        Year:<select name="years" onChange="setYear(this.value)"><option value="-1">Years</option></select>
+                        Paper:<select name="papers" onChange="setPaper(this.value)" ><option value="-1">Papers</option></select>
+                        Index:<select name="offsets" onChange="setOffset(parseInt(this.value))" ><option value="-1">Questions</option></select><br>
+                    </div>
+                    
                 </div>
-            </div>
-        </form>
-        
-        <p><button type="submit" onClick="loadQuestionsReset(true);" >Load Yearly Questions</button></p>
-          
-        </div>
-  </div>
-
-
-  <div id="id-print-menu-popup" class="modal">
-        <div class="modal-content">
-          <span onClick="popup('id-print-menu');" class="close">&times;</span>
-        
-          <h4>Print</h4>
-          <p>To be implented soon, please revisit !.</p>
-
-        </div>
-  </div>
-  
-  <div id="id-loading-menu-popup" class="modal">
-        <div class="modal-content">
-          <span onClick="popup('id-loading-menu');" class="close">&times;</span>
-        
-          <h4>Loading ...</h4>
-          <center><div class="loader"></div></center>
-
-        </div>
-  </div>
     
+            </form>
+            
+            <p><button type="submit" onClick="popup('id-year-menu');return loadQuestions(true);" >Load Yearly Questions</button></p>
+
+</div>
+
+<div id="id-touch-menu-popup" class="pop-inactive">
+  <h4>Stlus</h4>
+  <p>To be implented soon, please revisit !.</p>
+</div>
+
+
+<div id="id-bug-menu-popup" class="pop-inactive">
+  <h4>Bug Report</h4>
+  <p>To be implented soon, please revisit !.</p>
+</div>
+
+<div id="id-print-menu-popup" class="pop-inactive">
+  <h4>Print</h4>
+  <p>To be implented soon, please revisit !.</p>
+</div>
+
+<div id="answer-panel" class="answer-panel">
+<!--
+    <img src="https://docs.google.com/uc?id=10oP5MupnUMaLHCIiCqmPWlJJ5vkVlK_Q" style="margin-left: -100px; width: 100%;">
+-->
+</div>
+
+    <div class="icon-bar-h">
+      <a id="current-q" class="yes">00 / 00</a>
+    </div>
+
+
+<div id="myPad" style="overflow-y: visible;">
+
+<!--
+
+<div id="myPad" class="scrollMeOnly" style="max-height: 600px; overflow-y: scroll; scroll-behavior: smooth;">
+    <canvas id="sketchpad" style="max-width: 100%; float:left; " ></canvas>
+
+    <div id="myDiv"></div>
+    -->
+</div>
+
+
+<script>
+
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+
+function popup(srcId) {
+    var popObj = document.getElementById(srcId+"-popup");
+    var src = document.getElementById(srcId);
+    if(!popObj) return;
     
-    
-    
-
-    <script type="text/javascript">
-      // Client ID and API key from the Developer Console
-      var CLIENT_ID = '364879519218-p5nnfrs24cf1efg8i6av9mo3b0jf6mdk.apps.googleusercontent.com';
-      var API_KEY = 'AIzaSyDpIPPq8xmjDkKPSY4RcSzxojWUCs31tMs';
-
-      // Array of API discovery doc URLs for APIs used by the quickstart
-      var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
-
-      // Authorization scopes required by the API; multiple scopes can be
-      // included, separated by spaces.
-      var SCOPES = 'https://www.googleapis.com/auth/drive.readonly';
-
-      var authorizeButton = document.getElementById('authorize_button');
-      var signoutButton = document.getElementById('signout_button');
-      
-      var DRIVE_SCRIPTS = ["1PN0qM-uQkLj3mlRWbG9LRnAmHMn14O_V", "1d1uu39OYhnukwAugf1akDoJbMMglbG86", "1YbwFTnQCCPd1vsHBOwvQ2PgSROdfxJN-"
-      ,"1H-67tEF4RmtGGS7wC-1Q8bs8bu_9yXlW"];
-
-    //   var DRIVE_SCRIPTS = ["1PN0qM-uQkLj3mlRWbG9LRnAmHMn14O_V", "1d1uu39OYhnukwAugf1akDoJbMMglbG86", "1YbwFTnQCCPd1vsHBOwvQ2PgSROdfxJN-"
-    //   ,"1H-67tEF4RmtGGS7wC-1Q8bs8bu_9yXlW", "1DOLl0-jtgv4HZniNgQI2xsoPl1M_GkgI", "14gBbei5tIUOsyHJ_9Gtm-fmknJgtz3qH"];
-
-      /**
-       *  On load, called to load the auth2 library and API client library.
-       */
-      function handleClientLoad() {
-        gapi.load('client:auth2', initClient);
-      }
-
-      /**
-       *  Initializes the API client library and sets up sign-in state
-       *  listeners.
-       */
-      function initClient() {
-        gapi.client.init({
-          apiKey: API_KEY,
-          clientId: CLIENT_ID,
-          discoveryDocs: DISCOVERY_DOCS,
-          scope: SCOPES
-        }).then(function () {
-          // Listen for sign-in state changes.
-          gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-
-          // Handle the initial sign-in state.
-          updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-          authorizeButton.onclick = handleAuthClick;
-          signoutButton.onclick = handleSignoutClick;
-        }, function(error) {
-          appendPre(JSON.stringify(error, null, 2));
-        });
-      }
-
-      /**
-       *  Called when the signed in status changes, to update the UI
-       *  appropriately. After a sign-in, the API is called.
-       */
-      function updateSigninStatus(isSignedIn) {
-        if (isSignedIn) {
-          authorizeButton.style.display = 'none';
-          signoutButton.style.display = 'block';
-          loadDriveScripts();
-          
-        } else {
-          authorizeButton.style.display = 'block';
-          signoutButton.style.display = 'none';
-        }
-      }
-
-      /**
-       *  Sign in the user upon button click.
-       */
-      function handleAuthClick(event) {
-        gapi.auth2.getAuthInstance().signIn();
-      }
-
-      /**
-       *  Sign out the user upon button click.
-       */
-      function handleSignoutClick(event) {
-        gapi.auth2.getAuthInstance().signOut();
-      }
-
-
-    function loadDriveFile(fileId, callback) {
-        var request = gapi.client.drive.files.get({
-            fileId: fileId,
-            alt: 'media'
-        })
-        request.then(function(response) {
-            if (typeof callback === "function") callback(response.body);
-        }, function(error) {
-            console.error(error)
-        })
-        return request;
+    if (src.className === "active") {
+        popObj.className = "pop-inactive";
+        src.className = "topnav";
+    } else {
+        popObj.className = "pop-active";
+        src.className = "active";
     }
+}
 
-    function loadDriveScripts() {
-    if(DRIVE_SCRIPTS.length == 0) {
-        console.log("All scripts loaded");
-        loadData();
-        return;
+function toggleTouch(src) {
+
+    var childNode = src.childNodes[0]
+    if (page.stylus) {
+        removeTouchListeners();
+        page.stylus = false;
+        childNode.style.color = "white";
+    } else {
+        addTouchListeners();
+        childNode.style.color = "red";
+        page.stylus = true;
     }
-    
-    loadDriveFile(DRIVE_SCRIPTS.pop(), function(contents){
-        var script = document.createElement("script")
-        script.type = "text/javascript";
-        script.textContent = contents;
-        document.getElementsByTagName("head")[0].appendChild(script);
-        
-        loadDriveScripts();
-    });
-    
-    }
+}
 
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+</script>
 
-    </script>
-
-    <script async defer src="https://apis.google.com/js/api.js"
-      onload="this.onload=function(){};handleClientLoad()"
-      onreadystatechange="if (this.readyState === 'complete') this.onload()">
-    </script>
-  </body>
+</body>
 </html>
