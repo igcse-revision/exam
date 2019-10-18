@@ -302,3 +302,31 @@ body {
 .error {
   background-color: red;
 }
+
+
+.answer {
+  margin: auto;
+  height: 20px;
+  width: 20px;
+  padding: 1px;
+  text-align: center;
+  border: 2px solid white;
+  border-radius: 50%;
+  font-weight: bold;
+  color: white;
+  font-size: 12px;
+  display: inline-block;
+}
+
+.green {
+  background-color: green;
+}
+
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+}
+
