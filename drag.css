@@ -326,6 +326,6 @@ body {
   background-color: red;
 }
 
-.black {
-  background-color: #000;
+.selected {
+  background-color: #862c97;
 }
