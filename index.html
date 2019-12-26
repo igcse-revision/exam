@@ -162,12 +162,15 @@
                 <div class="column">
                     Subjects: <select name="subjects" onChange="setSubject(this.options[this.selectedIndex].value)" ><option value="-1">Subjects</option></select>
                     Year:<select name="years" onChange="setYear(this.value)"><option value="-1">Years</option></select>
+                    Month:<select name="months" onChange="setMonth(this.value)"><option value="-1">Months</option></select>
                     Paper:<select name="papers" onChange="setPaper(this.value)" ><option value="-1">Papers</option></select>
+                    Zone:<select name="zones" onChange="setZone(this.value)"><option value="-1">Zones</option></select>
                     Index:<select name="offsets" onChange="setOffset(parseInt(this.value))" ><option value="-1">Questions</option></select><br>
                 </div>
             </div>
         </form>
         
+          
         <p><button type="submit" onClick="loadQuestionsReset(true);" >Load Yearly Questions</button></p>
           
         </div>
