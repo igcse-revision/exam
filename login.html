@@ -6,10 +6,18 @@
   </head>
   <body>
     <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+
+   <p><div id="status_id"> Status:</status_id>
+
     <script>
+
+      var profile = null;
       function onSignIn(googleUser) {
+
+        var status = document.getElementById("status_id");
+
         // Useful data for your client-side scripts:
-        var profile = googleUser.getBasicProfile();
+        profile = googleUser.getBasicProfile();
         console.log("ID: " + profile.getId()); // Don't send this directly to your server!
         console.log('Full Name: ' + profile.getName());
         console.log('Given Name: ' + profile.getGivenName());
@@ -17,59 +25,33 @@
         console.log("Image URL: " + profile.getImageUrl());
         console.log("Email: " + profile.getEmail());
         
-        alert(profile.getName());
+        status.innerHTML = "Hi, "+profile.getName()+", please wait, Checking permissions ...";
 
         // The ID token you need to pass to your backend:
         var id_token = googleUser.getAuthResponse().id_token;
-        console.log("ID Token: " + id_token);
-
         
-        var url = "https://drive.google.com/thumbnail?authuser=0&sz=w1024&id=16PAVmMBUTKnYh_Cm3Q1s0ThpHHI-WKDM";
-//         ajaxGet(url);
         checkPermission();
+
       }
 
       function checkPermission() {
-          var image = new Image();
+        var image = new Image();
+        var status = document.getElementById("status_id");
 
-          try {
-            image.src = "https://drive.google.com/thumbnail?authuser=0&sz=w1024&id=16PAVmMBUTKnYh_Cm3Q1s0ThpHHI-WKDM";
-            image.id = "test_id";
-          }
-          catch(err) {
-            alert("Error");
-          }
+        image.src = "https://drive.google.com/thumbnail?authuser=0&sz=w1024&id=1frOQrDtngWDSw4jgrjETYDKxIX89kfTB";
+        image.id = "test_id";
 
+        image.onload = function() {
+          status.innerHTML = "Hi, "+profile.getName()+", Authorization successful, redirecting to application ...";
+          window.location.replace("https://igcse-revision.github.io/exam/ib.html");
+        };           
 
-          image.onload = function() {
-               alert('Image loaded: ' + this.id);
-          };           
-
-          image.onerror = function() {
-               alert('Unable to load Image: ' + this.id);
-               
-             var r = makeXMLHttpRequestAgain(img.src);
-              alert(r.status);
-
-          };           
+        image.onerror = function() {
+          alert('Unable to load Image: ' + this.id);
+          status.innerHTML = "Hi, "+profile.getName()+", Authorization Failed, please contact Administrator";        
+        };           
 
       }
-
-    function ajaxGet(url, data, success, error) {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4 && xmlhttp.status === 200) {
-            if (typeof success === "function") {
-                alert("Success");
-            }
-        }else if(typeof error === "function" && (xmlhttp.status > 299 || xmlhttp.status < 200)){
-            alert("Error: "+xmlhttp.status);
-        }
-    }
-    xmlhttp.open("GET", url, true);
-//     xmlhttp.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-    xmlhttp.send(JSON.stringify(data));
-}
 
     </script>
   </body>
