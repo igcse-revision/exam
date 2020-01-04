@@ -32,15 +32,25 @@
       function checkPermission() {
           var image = new Image();
 
-          image.src = "https://drive.google.com/thumbnail?authuser=0&sz=w1024&id=16PAVmMBUTKnYh_Cm3Q1s0ThpHHI-WKDM";
-          image.id = "test_id";
-      
+          try {
+            image.src = "https://drive.google.com/thumbnail?authuser=0&sz=w1024&id=16PAVmMBUTKnYh_Cm3Q1s0ThpHHI-WKDM";
+            image.id = "test_id";
+          }
+          catch(err) {
+            alert("Error");
+          }
+
+
           image.onload = function() {
                alert('Image loaded: ' + this.id);
           };           
 
           image.onerror = function() {
-               alert('Unable to load Image' + this.id);
+               alert('Unable to load Image: ' + this.id);
+               
+             var r = makeXMLHttpRequestAgain(img.src);
+              alert(r.status);
+
           };           
 
       }
