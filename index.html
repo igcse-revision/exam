@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>IGCSE Revision</title>
+    <title>IBDP Revision</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
@@ -13,8 +13,7 @@
   
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script src="https://apis.google.com/js/platform.js"></script>
-    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
-
+    
     
     <script type="text/javascript">
       google.load('visualization', '1', {packages: ['corechart']});
@@ -23,15 +22,19 @@
     
     <meta charset="utf-8" />
 
-    <script src="https://igcse-revision.github.io/exam/base64ArrayBuffer.js"></script>
 
+    <script src="js/drag.js"></script>
+    <script src="js/sketchpad.js"></script>
+    <script src="js/questions.js"></script>
+    <script src="js/igcse_ClientConfig.js"></script>
+ 
 
     <!-- This is for Touchpad Style -->
-    <link rel="stylesheet" href="https://igcse-revision.github.io/exam/touchpad.css">
+    <link rel="stylesheet" href="css/touchpad.css">
     
     
     <!-- This is for Drag Style -->
-    <link rel="stylesheet" href="https://igcse-revision.github.io/exam/drag.css">
+    <link rel="stylesheet" href="css/drag.css">
 
   </head>
   <body onkeypress="keyPressed(event);">
@@ -40,14 +43,9 @@
   <div id="myPad"></div>
 
   <div class="icon-bar-h">
-    <a id="id-topic-menu" onclick="popup(this.id);">Topic</a>
+    <a id="id-search-menu" onclick="popup(this.id);">Find</a>
     <a onclick="plusDivs(-1);"><i class='fas fa-angle-double-left'></i></a>
 
-
-
-<!--
-    <a id="show-answer-id" onclick="showHideAnswer();" style="display: none;"><i class='fas fa-question' ></i></a>
--->
     <a id="show-answer-id" onclick="popup(this.id);" style="display: none; background-color: green"><i class='fas fa-question' ></i></a>
 
       <span id="show-mcq-id" style="display: none;">
@@ -64,7 +62,6 @@
     <a onclick="plusDivs(1);"><i class='fas fa-angle-double-right'></i></a>
     <a id="id-touch-menu" onclick="toggleTouch(this);"><i class="fa fa-edit" style="color:red;"></i></a>
 
-    <a id="id-year-menu" onclick="popup(this.id);">Year</a>
 
     <!--Add buttons to initiate auth sequence and sign out-->   
     <a id="authorize_button" style="display: none;color:red;">Login</a>
@@ -84,94 +81,72 @@
   <div class="icon-bar-hb">
     <div id="subject-name-id" style="float:left; text-align:left; width: 35%;overflow:hidden;  white-space:nowrap; text-overflow:ellipsis;" >Chapter</div>
     <div id="quiz-answer-id" style="float:left; text-align:left; width: 40%;" ></div>
-    <div id="question-name-id" style="float:right; text-align:right; width: 25%;" >Question No</div>
+    <div id="question-name-id" style="float:right; text-align:right; width: 25%; color: darkorange;font-weight: bolder;" >Question No</div>
   </div>
 
   <!-- Spacer below end of page -->
   <div style="height: 40px;"></div>
 
   <div id="show-answer-id-popup" class="modal">
-
     <div class="modal-content">
         <span onClick="popup('show-answer-id');" class="close">&times;</span>
-
       <div id="answer-panel" class="answer-panel"></div>
     </div>
   </div>
   
-  <div id="id-topic-menu-popup" class="modal">
-    
-    <div class="modal-content">
-        <span onClick="popup('id-topic-menu');" class="close">&times;</span>
-   
-            <form name="formTopic">
-
-              <div class="row">
-                  <div class="column">Match:</div>
-                  <div class="column">
-                      <input onclick="setMatch(this.value);" type="radio" name="match" value="m0" > Match 1
-                      <input onclick="setMatch(this.value);" type="radio" name="match" value="m1"> Match 2
-                      <input onclick="setMatch(this.value);" type="radio" name="match" value="m" checked> Both
-                  </div>
-              </div>
-
-              <div class="row">
-                  <div class="column">Subjects:</div>
-                  <div class="column">
-                      <select name="subjects" onChange="setSubject(this.options[this.selectedIndex].value)" ><option value="-1">Subjects</option></select>
-                  </div>
-              </div>
-
-      
-              <div class="row">
-                  <div class="column">Chapters:</div>
-                  <div class="column">
-                      <select name="chapters" onChange="setChapter(this.value)"><option value="-1">Chapters</option></select>
-                  </div>
-              </div>
-      
-              <div class="row">
-                  <div class="column">Papers:</div>
-                  <div class="column">
-                      <select name="papers" onChange="setPaper(this.value)" ><option value="-1">Papers</option></select>
-                  </div>
-              </div>
-          
-              <div class="row">
-                  <div class="column">Questions:</div>
-                  <div class="column">
-                      <select name="offsets" onChange="setOffset(parseInt(this.value))" ><option value="-1">Questions</option></select>
-                  </div>
-              </div>
-          </form>
-    
-        <div class="row">
-            <div class="column" width="80%">
-                <p><button type="submit" onClick="loadQuestionsReset();" >Load Chapter Questions</button></p>
-            </div>
-        </div>
-    </div>
-  </div>
 
   
-  <div id="id-year-menu-popup" class="modal">
+  <div id="id-search-menu-popup" class="modal">
         <div class="modal-content">
-          <span onClick="popup('id-year-menu');" class="close">&times;</span>
-          <form action="" name="formYear">
+          <span onClick="popup('id-search-menu');" class="close">&times;</span>
+          <form name="formSearch" onsubmit="return false;">
+          
             <div class="row" >
                 <div class="column">
-                    Subjects: <select name="subjects" onChange="setSubject(this.options[this.selectedIndex].value)" ><option value="-1">Subjects</option></select>
-                    Year:<select name="years" onChange="setYear(this.value)"><option value="-1">Years</option></select>
-                    Month:<select name="months" onChange="setMonth(this.value)"><option value="-1">Months</option></select>
-                    Paper:<select name="papers" onChange="setPaper(this.value)" ><option value="-1">Papers</option></select>
-                    Zone:<select name="zones" onChange="setZone(this.value)"><option value="-1">Zones</option></select>
-                    Index:<select name="offsets" onChange="setOffset(parseInt(this.value))" ><option value="-1">Questions</option></select><br>
+                  Select:
+                      <input onclick="setSelection(this.value);" type="radio" name="selection" value="T" checked autofocus> Topic
+                      <input onclick="setSelection(this.value);" type="radio" name="selection" value="Y"> Year
+                      <input onclick="setSelection(this.value);" type="radio" name="selection" value="S"> Search
+
+                    <br/><select name="subjects" onChange="setSubject(this.options[this.selectedIndex].value)" ><option value="-1">Subjects</option></select>
+
+                    <div id="topic-view" style="display:block;">
+                      <br/>Chapters:
+                      <input onclick="setMatch(this.value);" type="radio" name="match" value="m0" > Best
+                      <input onclick="setMatch(this.value);" type="radio" name="match" value="m1"> Good
+                      <input onclick="setMatch(this.value);" type="radio" name="match" value="m" checked> Both
+                      
+                      <select name="chapters" onChange="setChapter(this.value)"><option value="-1">Chapters</option></select>
+                    </div>
+
+                    <div id="year-view" style="display:none;">
+                      <br/>Year:<select name="years" onChange="setYear(this.value)"><option value="-1">Years</option></select>
+                      Season:<select name="months" onChange="setMonth(this.value)"><option value="-1">Months</option></select>
+                    </div>
+
+
+                    <div id="non-search-view" style="display:block;">
+                      Papers:<select name="papers" onChange="setPaper(this.value)" ><option value="-1">Papers</option></select>
+                    </div>
+
+                    <div id="year-view2" style="display:none;">
+                      Zone:<select name="zones" onChange="setZone(this.value)"><option value="-1">Zones</option></select>
+                    </div>                  
+
+                    <div id="search-view" style="display:none;">
+                      <br/><input type="text" name="searchTerm" onkeypress="keyPressedIgnore(event);"></input>
+                      <input value="Search" type="button" onClick="loadQuestionsCount();"><br/><br/>
+                    </div>
+
+                    
+                    Questions: <span id="id-offset-count-status" style="color: red;"></span>
+                    <select name="offsets" onChange="setOffset(parseInt(this.value))" ><option value="-1">Questions</option></select><br>
                 </div>
             </div>
+        <input type="button" name="loadQuestions" value="Load Questions" onClick="loadQuestionsReset(true);"></input></p>
+
         </form>
         
-          
-        <p><button type="submit" onClick="loadQuestionsReset(true);" >Load Yearly Questions</button></p>
           
         </div>
   </div>
@@ -202,7 +177,7 @@
 
       var authorizeButton = document.getElementById('authorize_button');
       var signoutButton = document.getElementById('signout_button');
-      
+
       var DRIVE_SCRIPTS = ["1PN0qM-uQkLj3mlRWbG9LRnAmHMn14O_V", "1d1uu39OYhnukwAugf1akDoJbMMglbG86", "1YbwFTnQCCPd1vsHBOwvQ2PgSROdfxJN-"
       ,"1H-67tEF4RmtGGS7wC-1Q8bs8bu_9yXlW"];
 
@@ -235,7 +210,9 @@
           authorizeButton.onclick = handleAuthClick;
           signoutButton.onclick = handleSignoutClick;
         }, function(error) {
-          appendPre(JSON.stringify(error, null, 2));
+            var erMsg = JSON.stringify(error, null, 2);
+            document.getElementById.innerHTML = erMsg;
+            console.log(erMsg);
         });
       }
 
@@ -247,7 +224,10 @@
         if (isSignedIn) {
           authorizeButton.style.display = 'none';
           signoutButton.style.display = 'block';
-          loadDriveScripts();
+
+
+          loadData();
+          //loadDriveScripts();
           
         } else {
           authorizeButton.style.display = 'block';
@@ -299,6 +279,41 @@
         loadDriveScripts();
     });
     
+    }
+
+    function setSelection(sel) {
+      var vT = document.getElementById("topic-view");
+      var vY = document.getElementById("year-view");
+      var vY2 = document.getElementById("year-view2");
+      var vS = document.getElementById("search-view");
+      var vN = document.getElementById("non-search-view");
+
+      vT.style.display = "none";
+      vY.style.display = "none";
+      vY2.style.display = "none";
+      vS.style.display = "none";
+      vN.style.display = "none";
+
+      document.formSearch.loadQuestions.disabled = false;
+
+      if(sel == "T") {
+        vT.style.display = "block";
+        vN.style.display = "block";
+        page.search = "T";
+        document.getElementById("id-offset-count-status").innerHTML = "";
+      } else if(sel == "Y") {
+        vY.style.display = "block";
+        vN.style.display = "block";
+        vY2.style.display = "block";
+        page.search = "Y";
+        document.getElementById("id-offset-count-status").innerHTML = "";
+      } else {
+        vS.style.display = "block";
+        page.search = "S";
+        document.getElementById("id-offset-count-status").innerHTML = "Tip:- For absolute search use quotes, Ex:  \"Gross Domestic Product\"";
+      }
+
+      setSubject(page.subjectCode);
     }
 
 
