@@ -1,18 +1,12 @@
 
 
-//var ssKey = "1gCUraLQF5IRIzBxs0DRdxFG5whlp3PzDJVYr7v6-AVk";
-// var ssKey = "1lKXvacTQ8txa33YFGyLQfrFK0D7JXyN8R3v2xUv9QXk";
-var ssKey = "1pZA8cN5QXLtrIHCgxc7qWQQGmkV9wcU96LHWTcXpbNg";
-// var ssKey = "1UnmMgC3OBGpdaX1RB0B4ve-OeGrPAs3nqDxou6zk6Qc";
-
-
 var driveURL = 'https://docs.google.com/uc?id=';
 var thumbURL = 'https://drive.google.com/thumbnail?authuser=0&sz=w1024&id=';
 
 // var driveURL = 'https://drive.google.com/open?id=';
 
 var visualization;
-var monthDesc = {"M":"May/June", "N":"Nov/Dec"};
+
 
 var imagePool = {};
 var page = {
@@ -1099,7 +1093,7 @@ function handleQuestionsResponse(response) {
         record["m1"] = data.getValue(i, 6);
         record["questionNo"] = data.getValue(i, 7);
         record["questionName"] = data.getValue(i, 8);
-        if(record["questionName"]) record["questionName"] = record["questionName"].replace(/_/gmi, "/");
+        if(record["questionName"] && curriculum == "IB") record["questionName"] = record["questionName"].replace(/_/gmi, "/");
         
         var questionPages = data.getValue(i, 9);
         record["answer"] = data.getValue(i, 10);
