@@ -38,44 +38,61 @@
   </head>
   <body onkeypress="keyPressed(event);">
 
-    <div style="height: 45px;"></div>
-  <div id="myPad"></div>
-
-  <div class="icon-bar-h">
-    <a id="id-search-menu" onclick="popup(this.id);">Find</a>
-    <a onclick="plusDivs(-1);"><i class='fas fa-angle-double-left'></i></a>
-
-    <a id="show-answer-id" onclick="popup(this.id);" style="display: none; background-color: green"><i class='fas fa-question' ></i></a>
-
-      <span id="show-mcq-id" style="display: none;">
-        <a id="mcq-A" name="mcq-objects" onclick="checkMCQAnswer(this, 'A');" style="padding: 10px 2px;"><i class="mcq-button" >A</i></a>
-        <a id="mcq-B" name="mcq-objects" onclick="checkMCQAnswer(this, 'B');" style="padding: 10px 2px;"><i class="mcq-button" >B</i></a>
-        <a id="mcq-C" name="mcq-objects" onclick="checkMCQAnswer(this, 'C');" style="padding: 10px 2px;"><i class="mcq-button" >C</i></a>
-        <a id="mcq-D" name="mcq-objects" onclick="checkMCQAnswer(this, 'D');" style="padding: 10px 2px;"><i class="mcq-button" >D</i></a>
-        
-        <a id="id-answermode-menu" onclick="toggleAnswerMode();"><i class="fas fa-tasks" style="color:red;"></i></a>
-        	
-        	
-      </span>
-      
-    <a onclick="plusDivs(1);"><i class='fas fa-angle-double-right'></i></a>
-    <a id="id-touch-menu" onclick="toggleTouch(this);"><i class="fa fa-edit" style="color:red;"></i></a>
 
 
-    <!--Add buttons to initiate auth sequence and sign out-->   
-    <a id="authorize_button" style="display: none;color:red;">Login</a>
-    <a id="signout_button" style="display: none;">Logout</a>
-    
-    
-    <div style="float:right; text-align:right; width: 30%;">
-        <a id="total-questions-id" style="float:right;">0 / 0</a>
-        <div id="ms-papers-id" style="float:right;"> </div>
-        <div id="qp-papers-id" style="float:right;"> </div>
-        <div id="ot-papers-id" style="float:right;"> </div>
-        <div id="quiz-marks-id" style="float:right;"> </div>
+  <div class="icon-bar-h" id="myTopnav">
+    <div id="answer-options-id">
+        <a id="total-questions-id">0 / 0</a>
+
+        <a id="id-search-menu" onclick="popup(this.id);"><i class='fa fa-search'></i></a>
+        <a onclick="plusDivs(-1);"><i class='fas fa-angle-double-left'></i></a>
+
+        <a id="show-answer-id" onclick="popup(this.id);" style="display: none; background-color: green"><i class='fas fa-question' ></i></a>
+
+          <span id="show-mcq-id" style="display: none;">
+            <a id="mcq-A" name="mcq-objects" onclick="checkMCQAnswer(this, 'A');" style="padding: 10px 2px;"><i class="mcq-button" >A</i></a>
+            <a id="mcq-B" name="mcq-objects" onclick="checkMCQAnswer(this, 'B');" style="padding: 10px 2px;"><i class="mcq-button" >B</i></a>
+            <a id="mcq-C" name="mcq-objects" onclick="checkMCQAnswer(this, 'C');" style="padding: 10px 2px;"><i class="mcq-button" >C</i></a>
+            <a id="mcq-D" name="mcq-objects" onclick="checkMCQAnswer(this, 'D');" style="padding: 10px 2px;"><i class="mcq-button" >D</i></a>
+
+            <a id="id-answermode-menu" onclick="toggleAnswerMode();"><i class="fas fa-tasks" style="color:red;"></i></a>
+
+          </span>
+
+        <a onclick="plusDivs(1);"><i class='fas fa-angle-double-right'></i></a>
+        <a id="id-touch-menu" onclick="toggleTouch(this);"><i class="fa fa-edit" style="color:red;"></i></a>
+    </div>
+
+    <div id="pdfs_id" class="dropdown">
+      <button class="dropbtn"> 
+        <i class="fa fa-download" style="color:white;"></i>
+      </button>
+      <div class="dropdown-content">
+          <a id="ms-papers-id" >QP</a>
+          <a id="qp-papers-id" >MS</a>
+          <a id="ot-papers-id" >Others</a>      
+      </div>
+    </div>
+
+
+
+  <div id="login_id" class="dropdown">
+    <button class="dropbtn">Google 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a id="authorize_button" >Login</a>
+      <a id="signout_button" >Logout</a>
     </div>
   </div>
+    
+    <a id="quiz-marks-id">92.12%</a>
 
+    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="responsiveView()">&#9776;</a>
+  </div>
+
+  <div style="height: 45px;"></div>
+  <div id="myPad"></div>
 
   <div class="icon-bar-hb">
     <div id="subject-name-id" style="float:left; text-align:left; width: 35%;overflow:hidden;  white-space:nowrap; text-overflow:ellipsis;" >Chapter</div>
@@ -323,5 +340,17 @@
       onload="this.onload=function(){};handleClientLoad()"
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
+
+<script>
+function responsiveView() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "icon-bar-h") {
+    x.className += " responsive";
+  } else {
+    x.className = "icon-bar-h";
+  }
+}
+</script>    
+
   </body>
 </html>
