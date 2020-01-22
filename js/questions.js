@@ -1204,6 +1204,7 @@ function updateCanvas(type) {
     page.list[page.slideIndex - 1].draw.question.canvas = canvas;
 
     myPad.scrollTop = 0;
+    window.scrollTo(0, 0);
 
     var hFact = canvas.clientHeight / maxHeight;
     var pageData = page.list[page.slideIndex - 1].data;
