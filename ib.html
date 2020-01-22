@@ -197,8 +197,8 @@
 
 
       var profile = null;
+      var siteAccess = false;
       function onSignIn(googleUser) {
-        popup("id-google-login", "open");
 
         var status = document.getElementById("status_id");
 
@@ -224,18 +224,21 @@
         var status = document.getElementById("status_id");
         status.innerHTML = "Hi, "+profile.getName()+", please wait, Checking permissions ...";
 
+//         image.src = "https://drive.google.com/thumbnail?authuser=0&sz=w1024&id=1frOQrDtngWDSw4jgrjETYDKxIX89kfTB";
         image.src = "https://drive.google.com/thumbnail?authuser=0&sz=w1024&id=1frOQrDtngWDSw4jgrjETYDKxIX89kfTB";
         image.id = "test_id";
 
         image.onload = function() {
           status.innerHTML = "Hi, "+profile.getName()+", Authorization successful !";
           popup("id-google-login", "close");
+          siteAccess = true;
           loadData();
           //window.location.replace("ib.html");
         };           
 
         image.onerror = function() {
-          status.innerHTML = "Hi, "+profile.getName()+", Authorization Failed, please contact Administrator";
+          siteAccess = false;
+          status.innerHTML = "Hi, "+profile.getName()+", Unable to access site, please make sure you have access by contacting Administrator";
         };           
 
       }
