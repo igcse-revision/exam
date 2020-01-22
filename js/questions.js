@@ -75,10 +75,10 @@ function popup(srcId, action) {
     var popObj = document.getElementById(srcId+"-popup");
       if(!popObj) return;
 
-      if(srcId == "id-search-menu") {
-          checkPermission();
-          return;
-      }
+//       if(srcId == "id-search-menu") {
+//           checkPermission();
+//           return;
+//       }
 
       var display = "none";
       if(action == "open" ) {
