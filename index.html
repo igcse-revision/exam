@@ -6,28 +6,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
   
-  
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="167327807367-tjcpvsgk84edooodak5tdkdm4ks2b8l4.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script src="https://apis.google.com/js/platform.js"></script>
     
     
     <script type="text/javascript">
       google.load('visualization', '1', {packages: ['corechart']});
     </script>
-
     
     <meta charset="utf-8" />
-
 
     <script src="js/drag.js"></script>
     <script src="js/sketchpad.js"></script>
     <script src="js/questions.js"></script>
     <script src="js/igcse_ClientConfig.js"></script>
- 
+    
 
     <!-- This is for Touchpad Style -->
     <link rel="stylesheet" href="css/touchpad.css">
@@ -38,44 +40,52 @@
 
   </head>
   <body onkeypress="keyPressed(event);">
-
-    <div style="height: 45px;"></div>
+  <div style="height: 45px;"></div>
   <div id="myPad"></div>
 
-  <div class="icon-bar-h">
-    <a id="id-search-menu" onclick="popup(this.id);">Find</a>
-    <a onclick="plusDivs(-1);"><i class='fas fa-angle-double-left'></i></a>
 
-    <a id="show-answer-id" onclick="popup(this.id);" style="display: none; background-color: green"><i class='fas fa-question' ></i></a>
+  <div class="icon-bar-h" id="myTopnav">
+    <div id="answer-options-id">
+        <a id="total-questions-id">0 / 0</a>
 
-      <span id="show-mcq-id" style="display: none;">
-        <a id="mcq-A" name="mcq-objects" onclick="checkMCQAnswer(this, 'A');" style="padding: 10px 2px;"><i class="mcq-button" >A</i></a>
-        <a id="mcq-B" name="mcq-objects" onclick="checkMCQAnswer(this, 'B');" style="padding: 10px 2px;"><i class="mcq-button" >B</i></a>
-        <a id="mcq-C" name="mcq-objects" onclick="checkMCQAnswer(this, 'C');" style="padding: 10px 2px;"><i class="mcq-button" >C</i></a>
-        <a id="mcq-D" name="mcq-objects" onclick="checkMCQAnswer(this, 'D');" style="padding: 10px 2px;"><i class="mcq-button" >D</i></a>
-        
-        <a id="id-answermode-menu" onclick="toggleAnswerMode();"><i class="fas fa-tasks" style="color:red;"></i></a>
-        	
-        	
-      </span>
-      
-    <a onclick="plusDivs(1);"><i class='fas fa-angle-double-right'></i></a>
-    <a id="id-touch-menu" onclick="toggleTouch(this);"><i class="fa fa-edit" style="color:red;"></i></a>
+        <a id="id-search-menu" onclick="popup(this.id);"><i class='fa fa-search'></i></a>
+        <a onclick="plusDivs(-1);"><i class='fas fa-angle-double-left'></i></a>
 
+        <a id="show-answer-id" onclick="popup(this.id);" style="display: none; background-color: green"><i class='fas fa-question' ></i></a>
 
-    <!--Add buttons to initiate auth sequence and sign out-->   
-    <a id="authorize_button" style="display: none;color:red;">Login</a>
-    <a id="signout_button" style="display: none;">Logout</a>
-    
-    
-    <div style="float:right; text-align:right; width: 30%;">
-        <a id="total-questions-id" style="float:right;">0 / 0</a>
-        <div id="ms-papers-id" style="float:right;"> </div>
-        <div id="qp-papers-id" style="float:right;"> </div>
-        <div id="ot-papers-id" style="float:right;"> </div>
-        <div id="quiz-marks-id" style="float:right;"> </div>
+          <span id="show-mcq-id" style="display: none;">
+            <a id="mcq-A" name="mcq-objects" onclick="checkMCQAnswer(this, 'A');" style="padding: 10px 2px;"><i class="mcq-button" >A</i></a>
+            <a id="mcq-B" name="mcq-objects" onclick="checkMCQAnswer(this, 'B');" style="padding: 10px 2px;"><i class="mcq-button" >B</i></a>
+            <a id="mcq-C" name="mcq-objects" onclick="checkMCQAnswer(this, 'C');" style="padding: 10px 2px;"><i class="mcq-button" >C</i></a>
+            <a id="mcq-D" name="mcq-objects" onclick="checkMCQAnswer(this, 'D');" style="padding: 10px 2px;"><i class="mcq-button" >D</i></a>
+
+            <a id="id-answermode-menu" onclick="toggleAnswerMode();"><i class="fas fa-tasks" style="color:red;"></i></a>
+
+          </span>
+
+        <a onclick="plusDivs(1);"><i class='fas fa-angle-double-right'></i></a>
+        <a id="id-touch-menu" onclick="toggleTouch(this);"><i class="fa fa-edit" style="color:red;"></i></a>
     </div>
+
+    <div id="pdfs_id" class="dropdown">
+      <button class="dropbtn"> 
+        <i class="fa fa-download" style="color:white;"></i>
+      </button>
+      <div class="dropdown-content">
+          <a id="ms-papers-id" >QP</a>
+          <a id="qp-papers-id" >MS</a>
+          <a id="ot-papers-id" >Others</a>      
+      </div>
+    </div>
+
+  <a id="id-google-login" onclick="popup(this.id);">
+    <image id="user-profile-image-id" style="border-radius: 50%; width: 25px; display: none;"/>
+    <i id="user-profile-icon-id" style="font-size:15px; color: red;" class="fa">&#xf235;</i></a>  
+  <a id="quiz-marks-id"></a>
+
+    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="responsiveView()">&#9776;</a>
   </div>
+
 
 
   <div class="icon-bar-hb">
@@ -162,126 +172,82 @@
         </div>
   </div>
 
-
-    <script type="text/javascript">
-      // Client ID and API key from the Developer Console
-      var CLIENT_ID = '364879519218-p5nnfrs24cf1efg8i6av9mo3b0jf6mdk.apps.googleusercontent.com';
-      var API_KEY = 'AIzaSyDpIPPq8xmjDkKPSY4RcSzxojWUCs31tMs';
-      
-      // For testing, remove this later
-      var siteAccess = true;
-
-      // Array of API discovery doc URLs for APIs used by the quickstart
-      var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
-
-      // Authorization scopes required by the API; multiple scopes can be
-      // included, separated by spaces.
-      var SCOPES = 'https://www.googleapis.com/auth/drive.readonly';
-
-      var authorizeButton = document.getElementById('authorize_button');
-      var signoutButton = document.getElementById('signout_button');
-
-      var DRIVE_SCRIPTS = ["1PN0qM-uQkLj3mlRWbG9LRnAmHMn14O_V", "1d1uu39OYhnukwAugf1akDoJbMMglbG86", "1YbwFTnQCCPd1vsHBOwvQ2PgSROdfxJN-"
-      ,"1H-67tEF4RmtGGS7wC-1Q8bs8bu_9yXlW"];
-
-    //   var DRIVE_SCRIPTS = ["1PN0qM-uQkLj3mlRWbG9LRnAmHMn14O_V", "1d1uu39OYhnukwAugf1akDoJbMMglbG86", "1YbwFTnQCCPd1vsHBOwvQ2PgSROdfxJN-"
-    //   ,"1H-67tEF4RmtGGS7wC-1Q8bs8bu_9yXlW", "1DOLl0-jtgv4HZniNgQI2xsoPl1M_GkgI", "14gBbei5tIUOsyHJ_9Gtm-fmknJgtz3qH"];
-
-      /**
-       *  On load, called to load the auth2 library and API client library.
-       */
-      function handleClientLoad() {
-        gapi.load('client:auth2', initClient);
-      }
-
-      /**
-       *  Initializes the API client library and sets up sign-in state
-       *  listeners.
-       */
-      function initClient() {
-        gapi.client.init({
-          apiKey: API_KEY,
-          clientId: CLIENT_ID,
-          discoveryDocs: DISCOVERY_DOCS,
-          scope: SCOPES
-        }).then(function () {
-          // Listen for sign-in state changes.
-          gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-
-          // Handle the initial sign-in state.
-          updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-          authorizeButton.onclick = handleAuthClick;
-          signoutButton.onclick = handleSignoutClick;
-        }, function(error) {
-            var erMsg = JSON.stringify(error, null, 2);
-            document.getElementById.innerHTML = erMsg;
-            console.log(erMsg);
-        });
-      }
-
-      /**
-       *  Called when the signed in status changes, to update the UI
-       *  appropriately. After a sign-in, the API is called.
-       */
-      function updateSigninStatus(isSignedIn) {
-        if (isSignedIn) {
-          authorizeButton.style.display = 'none';
-          signoutButton.style.display = 'block';
-
-
-          loadData();
-          //loadDriveScripts();
-          
-        } else {
-          authorizeButton.style.display = 'block';
-          signoutButton.style.display = 'none';
-        }
-      }
-
-      /**
-       *  Sign in the user upon button click.
-       */
-      function handleAuthClick(event) {
-        gapi.auth2.getAuthInstance().signIn();
-      }
-
-      /**
-       *  Sign out the user upon button click.
-       */
-      function handleSignoutClick(event) {
-        gapi.auth2.getAuthInstance().signOut();
-      }
-
-
-    function loadDriveFile(fileId, callback) {
-        var request = gapi.client.drive.files.get({
-            fileId: fileId,
-            alt: 'media'
-        })
-        request.then(function(response) {
-            if (typeof callback === "function") callback(response.body);
-        }, function(error) {
-            console.error(error)
-        })
-        return request;
-    }
-
-    function loadDriveScripts() {
-    if(DRIVE_SCRIPTS.length == 0) {
-        console.log("All scripts loaded");
-        loadData();
-        return;
-    }
-    
-    loadDriveFile(DRIVE_SCRIPTS.pop(), function(contents){
-        var script = document.createElement("script")
-        script.type = "text/javascript";
-        script.textContent = contents;
-        document.getElementsByTagName("head")[0].appendChild(script);
+  <div id="id-google-login-popup" class="modal">
+        <div class="modal-content">
+          <span onClick="popup('id-google-login');" class="close">&times;</span>
         
-        loadDriveScripts();
-    });
-    
+          <h4>Google Sign in ...</h4>
+          <center>
+
+            <p><p><div id="status_id" style="color: red;"> Google Sign In is required !</status_id></div>
+
+            <p><div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-longtitle="true"></div>
+            <p><p><a onclick="signOut();" style="color:red;">Sign out</a>
+   
+   
+          </center>
+
+        </div>
+  </div>
+
+
+ <script type="text/javascript">
+
+
+      var profile = null;
+      var siteAccess = false;
+      
+      function onSignIn(googleUser) {
+
+        var status = document.getElementById("status_id");
+
+        // Useful data for your client-side scripts:
+        profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        var userImg = document.getElementById("user-profile-image-id");
+        userImg.src = profile.getImageUrl();
+        userImg.style.display = "block";
+        document.getElementById("user-profile-icon-id").style.display = "none";
+
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        
+        checkPermission();
+
+      }
+
+      function checkPermission() {
+        popup("id-google-login", "open");
+        var image = new Image();
+        var status = document.getElementById("status_id");
+        status.innerHTML = "Hi, "+profile.getName()+", please wait, Checking permissions ...";
+
+        image.src = accessURL;
+        image.id = "test_id";
+
+        image.onload = function() {
+          status.innerHTML = "Hi, "+profile.getName()+", Authorization successful !";
+          popup("id-google-login", "close");
+          siteAccess = true;
+          loadData();
+        };           
+
+        image.onerror = function() {
+          siteAccess = false;
+          status.innerHTML = "Hi, "+profile.getName()+", Unable to access site, please make sure you have access by contacting Administrator";
+        };           
+
+      }
+
+    function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+          console.log('User signed out.');
+          document.getElementById("user-profile-icon-id").style.display = "block";
+          document.getElementById("user-profile-image-id").style.display = "none";
+          document.getElementById("status_id").innerHTML = "Google Sign In is required !";
+        });
     }
 
     function setSelection(sel) {
@@ -320,11 +286,20 @@
     }
 
 
-    </script>
+ </script>
 
-    <script async defer src="https://apis.google.com/js/api.js"
-      onload="this.onload=function(){};handleClientLoad()"
-      onreadystatechange="if (this.readyState === 'complete') this.onload()">
-    </script>
+
+
+<script>
+function responsiveView() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "icon-bar-h") {
+    x.className += " responsive";
+  } else {
+    x.className = "icon-bar-h";
+  }
+}
+</script>    
+
   </body>
 </html>
