@@ -1,5 +1,8 @@
 
 
+// var ssKey = "1pZA8cN5QXLtrIHCgxc7qWQQGmkV9wcU96LHWTcXpbNg";
+
+
 var driveURL = 'https://docs.google.com/uc?id=';
 var thumbURL = 'https://drive.google.com/thumbnail?authuser=0&sz=w1024&id=';
 
@@ -68,16 +71,26 @@ var popoversettings = {
 };
 
 
-function popup(srcId) {
+function popup(srcId, action) {
     var popObj = document.getElementById(srcId+"-popup");
       if(!popObj) return;
-    
-    if (popObj.style.display == "block") {
-        popObj.style.display = "none";
-    } else {
-        popObj.style.display = "block";
 
-    }
+      if(srcId == "id-search-menu") {
+          checkPermission();
+          return;
+      }
+
+      var display = "none";
+      if(action == "open" ) {
+        display = "block";
+      } else if(action == "close") {
+          display = "none"
+      } else {
+          if (popObj.style.display != "block") display = "block";
+          else display = "none";
+      }
+    
+      popObj.style.display = display;
 }
 
 function toggleAnswerMode() {
@@ -307,8 +320,6 @@ function resetMCQObjects() {
     var selected = page.list[page.slideIndex - 1].data.selected;
     var answer = page.list[page.slideIndex - 1].data.answer;
     
-    console.log("Reset MCQ - Selected: "+selected+" & Answer: "+answer+" & SlideIndex: "+page.slideIndex);
-
     for (var i = 0; i < mcqObjs.length; i++) {
         var node = mcqObjs[i].childNodes[0];
         var nodeId = mcqObjs[i].id;
