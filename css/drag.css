@@ -247,7 +247,7 @@ body {
 }
 
 @media screen and (min-width: 599px) {
-  #quiz-marks-id, #login_id {float: right;}
+  #quiz-marks-id, #id-google-login {float: right;}
 }
 
 @media screen and (max-width: 600px) {
@@ -383,4 +383,8 @@ body {
 
 .selected {
   background-color: #862c97;
+}
+
+#id-google-login-popup{
+  display: block;
 }
