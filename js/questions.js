@@ -453,7 +453,7 @@ function updateQuizPanel(quizElement) {
     }
     
     if(page.answerMode) {
-        totMarks.innerHTML = Math.round((marks/len)*100);
+        totMarks.innerHTML = Math.round((marks/len)*100) + "%";
     } else {
         totMarks.innerHTML = "";
     }
