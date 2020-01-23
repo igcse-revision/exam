@@ -251,7 +251,7 @@ body {
 }
 
 @media screen and (max-width: 600px) {
-  .dropdown .dropbtn {display: none;}
+  #id-answermode-menu #id-touch-menu .dropdown .dropbtn {display: none;}
   
   .icon-bar-h a.icon {
     float: right;
