@@ -53,17 +53,16 @@
 
         <a id="show-answer-id" onclick="popup(this.id);" style="display: none; background-color: green"><i class='fas fa-question' ></i></a>
 
-          <span id="show-mcq-id" style="display: none;">
-            <a id="mcq-A" name="mcq-objects" onclick="checkMCQAnswer(this, 'A');" style="padding: 10px 2px;"><i class="mcq-button" >A</i></a>
-            <a id="mcq-B" name="mcq-objects" onclick="checkMCQAnswer(this, 'B');" style="padding: 10px 2px;"><i class="mcq-button" >B</i></a>
-            <a id="mcq-C" name="mcq-objects" onclick="checkMCQAnswer(this, 'C');" style="padding: 10px 2px;"><i class="mcq-button" >C</i></a>
-            <a id="mcq-D" name="mcq-objects" onclick="checkMCQAnswer(this, 'D');" style="padding: 10px 2px;"><i class="mcq-button" >D</i></a>
-
-            <a id="id-answermode-menu" onclick="toggleAnswerMode();"><i class="fas fa-tasks" style="color:red;"></i></a>
-
-          </span>
+        <span id="show-mcq-id" style="display: none;">
+          <a id="mcq-A" name="mcq-objects" onclick="checkMCQAnswer(this, 'A');" style="padding: 10px 2px;"><i class="mcq-button" >A</i></a>
+          <a id="mcq-B" name="mcq-objects" onclick="checkMCQAnswer(this, 'B');" style="padding: 10px 2px;"><i class="mcq-button" >B</i></a>
+          <a id="mcq-C" name="mcq-objects" onclick="checkMCQAnswer(this, 'C');" style="padding: 10px 2px;"><i class="mcq-button" >C</i></a>
+          <a id="mcq-D" name="mcq-objects" onclick="checkMCQAnswer(this, 'D');" style="padding: 10px 2px;"><i class="mcq-button" >D</i></a>
+        </span>
 
         <a onclick="plusDivs(1);"><i class='fas fa-angle-double-right'></i></a>
+        
+        <a id="id-answermode-menu" onclick="toggleAnswerMode();"><i class="fas fa-check-square" style="color:red;display: none;"></i></a>
         <a id="id-touch-menu" onclick="toggleTouch(this);"><i class="fa fa-edit" style="color:red;"></i></a>
     </div>
 
@@ -82,8 +81,10 @@
 
   <a id="id-google-login" onclick="popup(this.id);">
     <image id="user-profile-image-id" style="border-radius: 50%; width: 20px; display: none;"/>
-    <i id="user-profile-icon-id" style="font-size:15px; color: red;" class="fa">&#xf235;</i></a>  
-  <a id="quiz-marks-id"></a>
+    <i id="user-profile-icon-id" style="font-size:15px; color: red;" class="fa">&#xf235;</i>
+  </a>  
+  
+  <a id="quiz-marks-id">91</a>
 
     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="responsiveView()">&#9776;</a>
   </div>
