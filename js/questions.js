@@ -1,8 +1,5 @@
 
 
-// var ssKey = "1pZA8cN5QXLtrIHCgxc7qWQQGmkV9wcU96LHWTcXpbNg";
-
-
 var driveURL = 'https://docs.google.com/uc?id=';
 var thumbURL = 'https://drive.google.com/thumbnail?authuser=0&sz=w1024&id=';
 
@@ -359,6 +356,7 @@ function showDivs(n) {
 
     var mcqElement = document.getElementById("show-mcq-id");
     var quizElement = document.getElementById("quiz-answer-id");
+    var mcqAnswerMode = document.getElementById("id-answermode-menu");
    
     
     var answerElement = document.getElementById("show-answer-id");
@@ -369,12 +367,14 @@ function showDivs(n) {
     var isMCQ = pageData.isMCQ;
     if (isMCQ || isMCQ == "TRUE" || isMCQ == "true") {
         mcqElement.style.display = "block";
+        mcqAnswerMode.style.display = "block";
         answerElement.style.display = "none";
         quizElement.style.display = "block";
         
         updateQuizPanel(quizElement);
     } else {
         mcqElement.style.display = "none";
+        mcqAnswerMode.style.display = "none";
         answerElement.style.display = "block";
         quizElement.style.display = "none";
 
@@ -453,7 +453,7 @@ function updateQuizPanel(quizElement) {
     }
     
     if(page.answerMode) {
-        totMarks.innerHTML = Math.round((marks/len)*100) + "%";
+        totMarks.innerHTML = Math.round((marks/len)*100);
     } else {
         totMarks.innerHTML = "";
     }
