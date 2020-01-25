@@ -429,7 +429,12 @@ function updateQuizPanel(quizElement) {
             if(ind) ind = parseInt(ind[1]);
 
             var pData = page.list[ind-1].data;
-            if(page.list[ind-1].data["mark"] != null) marks+= page.list[ind-1].data["mark"];
+            var wtMark = page.list[ind-1].data["mark"];
+            
+            if(wtMark == 0) wtMark = negativePoint;
+            else wtMark*= positivePoint;
+            
+            if(page.list[ind-1].data["mark"] != null) marks+= wtMark;
 
            if(pData.selected != null) {
                el.setAttribute("class", "answer selected");
@@ -453,7 +458,13 @@ function updateQuizPanel(quizElement) {
     }
     
     if(page.answerMode) {
-        totMarks.innerHTML = Math.round((marks/len)*100);
+        if(pData["mark"] != null) {
+            if(curriculum == "IB" || curriculum == "IG") {
+                totMarks.innerHTML = Math.round((marks/len)*100) + "%";
+            } else {
+                totMarks.innerHTML = marks + "/" +(len * positivePoint);
+            }
+        }
     } else {
         totMarks.innerHTML = "";
     }
