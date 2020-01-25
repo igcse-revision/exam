@@ -6,10 +6,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
   
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  
   
     <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="167327807367-tjcpvsgk84edooodak5tdkdm4ks2b8l4.apps.googleusercontent.com">
@@ -53,18 +53,17 @@
 
         <a id="show-answer-id" onclick="popup(this.id);" style="display: none; background-color: green"><i class='fas fa-question' ></i></a>
 
-          <span id="show-mcq-id" style="display: none;">
-            <a id="mcq-A" name="mcq-objects" onclick="checkMCQAnswer(this, 'A');" style="padding: 10px 2px;"><i class="mcq-button" >A</i></a>
-            <a id="mcq-B" name="mcq-objects" onclick="checkMCQAnswer(this, 'B');" style="padding: 10px 2px;"><i class="mcq-button" >B</i></a>
-            <a id="mcq-C" name="mcq-objects" onclick="checkMCQAnswer(this, 'C');" style="padding: 10px 2px;"><i class="mcq-button" >C</i></a>
-            <a id="mcq-D" name="mcq-objects" onclick="checkMCQAnswer(this, 'D');" style="padding: 10px 2px;"><i class="mcq-button" >D</i></a>
-
-            <a id="id-answermode-menu" onclick="toggleAnswerMode();"><i class="fas fa-tasks" style="color:red;"></i></a>
-
-          </span>
+        <span id="show-mcq-id" style="display: none;">
+          <a id="mcq-A" name="mcq-objects" onclick="checkMCQAnswer(this, 'A');" style="padding: 10px 2px;"><i class="mcq-button" >A</i></a>
+          <a id="mcq-B" name="mcq-objects" onclick="checkMCQAnswer(this, 'B');" style="padding: 10px 2px;"><i class="mcq-button" >B</i></a>
+          <a id="mcq-C" name="mcq-objects" onclick="checkMCQAnswer(this, 'C');" style="padding: 10px 2px;"><i class="mcq-button" >C</i></a>
+          <a id="mcq-D" name="mcq-objects" onclick="checkMCQAnswer(this, 'D');" style="padding: 10px 2px;"><i class="mcq-button" >D</i></a>
+        </span>
 
         <a onclick="plusDivs(1);"><i class='fas fa-angle-double-right'></i></a>
-        <a id="id-touch-menu" onclick="toggleTouch(this);"><i class="fa fa-edit" style="color:red;"></i></a>
+        
+        <a id="id-answermode-menu" onclick="toggleAnswerMode();" class="dropdown"><i class="fas fa-check-square" style="color:red;"></i></a>
+        <a id="id-touch-menu" onclick="toggleTouch(this);" class="dropdown"><i class="fa fa-edit" style="color:red; "></i></a>
     </div>
 
     <div id="pdfs_id" class="dropdown">
@@ -78,10 +77,14 @@
       </div>
     </div>
 
+
+
   <a id="id-google-login" onclick="popup(this.id);">
-    <image id="user-profile-image-id" style="border-radius: 50%; width: 25px; display: none;"/>
-    <i id="user-profile-icon-id" style="font-size:15px; color: red;" class="fa">&#xf235;</i></a>  
-  <a id="quiz-marks-id"></a>
+    <image id="user-profile-image-id" style="border-radius: 50%; width: 20px; display: none;"/>
+    <i id="user-profile-icon-id" style="font-size:15px; color: red;" class="fa">&#xf235;</i>
+  </a>  
+  
+  <a id="quiz-marks-id">91</a>
 
     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="responsiveView()">&#9776;</a>
   </div>
@@ -223,6 +226,7 @@
         var status = document.getElementById("status_id");
         status.innerHTML = "Hi, "+profile.getName()+", please wait, Checking permissions ...";
 
+//         image.src = "https://drive.google.com/thumbnail?authuser=0&sz=w1024&id=1frOQrDtngWDSw4jgrjETYDKxIX89kfTB";
         image.src = accessURL;
         image.id = "test_id";
 
@@ -231,6 +235,7 @@
           popup("id-google-login", "close");
           siteAccess = true;
           loadData();
+          //window.location.replace("ib.html");
         };           
 
         image.onerror = function() {
