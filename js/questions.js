@@ -728,7 +728,8 @@ function setMatch(match) {
 
 function setSearch(selSearchTerm) {
     page.total = 0;
-    populateOffset();
+    populatePapers();
+//     populateOffset();
 }
 
 function setChapter(chapter) {
