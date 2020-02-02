@@ -193,8 +193,9 @@ function keyPressed(event) {
         plusDivs(ques-page.slideIndex);
         break;
 
-      // CTRL + Enter for submitAns
-      case 10:
+      // "R" or "r" for Results
+      case 82:
+      case 114:
         toggleAnswerMode();
         break;
       
@@ -834,7 +835,7 @@ function loadQuestionsReset() {
 
 function getSearchQueryWhere() {
     if(!page.searchTerm) return;
-    var query = " WHERE ";
+    var query = " WHERE  C = '" + page.paperCode +"' AND ";
     if(page.searchTerm.startsWith("\"") && page.searchTerm.endsWith("\"")) {
         return query+"lower(M) contains '" + page.searchTerm.replace(/"/g,"").replace(/ {1,}/g," ")+"'";
     }
@@ -1194,8 +1195,9 @@ function updateCanvas(type) {
 
     if (maxWidth < window.innerWidth)
         maxWidth = window.innerWidth;
+        
     if (maxHeight < window.innerHeight)
-        maxHeight = window.innerHeight;
+        maxHeight = window.innerHeight - 50;
 
     canvas.height = maxHeight;
     canvas.width = maxWidth;
@@ -1240,7 +1242,7 @@ function loadSubjectsData() {
 
 function loadData() {
 
-    document.getElementById("myPad").style = "max-height: " + (screen.height) + "px;";
+    document.getElementById("myPad").style = "max-height: " + (screen.height -50) + "px;";
 
     loadSubjectsData();
     popup("id-search-menu");
