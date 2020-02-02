@@ -696,12 +696,19 @@ function populatePapers() {
                 selPaperCode = pNo;
                 papers.appendChild(new Option(pNo + " (" + paperData[pNo]["n"] + ")",pNo));
         }
-    } else {
+    } else if (page.search == "T") {
         paperData = subjectMap[page.subjectCode]["c"][page.chapterCode][page.match]["p"];
         for (var pNo in paperData) {
             if (!selPaperCode) selPaperCode = pNo;
 
             papers.appendChild(new Option(pNo + " (" + paperData[pNo] + ")",pNo));
+        }
+    } else if (page.search == "S") {
+        paperData = subjectMap[page.subjectCode]["s"];
+        for (var pNo in paperData) {
+            if (!selPaperCode) selPaperCode = pNo;
+
+            papers.appendChild(new Option(pNo + " (" + paperData[pNo].n + ")",pNo));
         }
     }
 
