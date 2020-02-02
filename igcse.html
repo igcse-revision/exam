@@ -46,7 +46,7 @@
 
   <div class="icon-bar-h" id="myTopnav">
     <div id="answer-options-id">
-        <a id="total-questions-id">0 / 0</a>
+        <a id="total-questions-id" onclick="popup('id-search-menu');" >0 / 0</a>
 
         <a id="id-search-menu" onclick="popup(this.id);"><i class='fa fa-search'></i></a>
         <a onclick="plusDivs(-1);"><i class='fas fa-angle-double-left'></i></a>
@@ -71,9 +71,9 @@
         <i class="fa fa-download" style="color:white;"></i>
       </button>
       <div class="dropdown-content">
-          <a id="ms-papers-id" >QP</a>
-          <a id="qp-papers-id" >MS</a>
-          <a id="ot-papers-id" >Others</a>      
+          <div id="ms-papers-id" >QP</div>
+          <div id="qp-papers-id" >MS</div>
+          <div id="ot-papers-id" >Others</div>      
       </div>
     </div>
 
@@ -283,6 +283,7 @@
         document.getElementById("id-offset-count-status").innerHTML = "";
       } else {
         vS.style.display = "block";
+        vN.style.display = "block";
         page.search = "S";
         document.getElementById("id-offset-count-status").innerHTML = "Tip:- For absolute search use quotes, Ex:  \"Gross Domestic Product\"";
       }
