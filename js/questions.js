@@ -916,7 +916,7 @@ function loadQuestions() {
 
     var orderBy = "";
     if (page.search == "Y") {
-        qString = qString + "' AND B = " + page.yearCode + " AND Q = '" + page.monthCode + "' AND D = '" + page.zoneCode+"'";
+        qString = qString + "' AND B = " + page.yearCode + " AND lower(Q) = '" + page.monthCode.toLowerCase() + "' AND D = '" + page.zoneCode+"'";
         orderBy = " ORDER BY B,Q,C,D LIMIT ";
     } else  if (page.search == "T") {
         if (page.match == "m")
