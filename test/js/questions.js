@@ -1164,6 +1164,7 @@ function createPad(id) {
 
 function updateCanvas(index) {
     var yPos = 0;
+    var type = "questionPages";
 
     // type: questionPages or answerPages
     var images = page.list[index].data[type];
@@ -1282,5 +1283,4 @@ function kill(type) {
         return false;
     }, true);
 }
-
 
