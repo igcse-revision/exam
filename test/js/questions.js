@@ -1039,6 +1039,8 @@ function loadPageImages(pages, index) {
 
                 image.onload = function() {
                     imagePool[this.id].status = "done";
+                    updateCanvas(imagePool[this.id].index);
+                    
                     var fp = imagePool["firstPage"];
                     if (fp[this.id] == 0) {
                         delete fp[this.id];
@@ -1047,7 +1049,6 @@ function loadPageImages(pages, index) {
                             //page.slideIndex = 1;
                             if (Object.keys(page.list).length <= page.limit) {
                                 console.log("Displaying very first image ...");
-                                updateCanvas(imagePool[this.id].index);
                                 showDivs(page.slideIndex);
                                 popup('id-loading-menu');
                             }
@@ -1163,7 +1164,6 @@ function createPad(id) {
 
 function updateCanvas(index) {
     var yPos = 0;
-    var type = "questionPages";
 
     // type: questionPages or answerPages
     var images = page.list[index].data[type];
