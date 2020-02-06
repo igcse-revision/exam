@@ -1283,3 +1283,4 @@ function kill(type) {
     }, true);
 }
 
+
