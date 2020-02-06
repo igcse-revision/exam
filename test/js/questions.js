@@ -1,4 +1,4 @@
-
+// Updated by 
 var driveURL = 'https://docs.google.com/uc?id=';
 var thumbURL = 'https://drive.google.com/thumbnail?authuser=0&sz=w1024&id=';
 
