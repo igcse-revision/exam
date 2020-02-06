@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>IBDP Revision </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  
+  
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="167327807367-tjcpvsgk84edooodak5tdkdm4ks2b8l4.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="https://apis.google.com/js/platform.js"></script>
+    
+    
+    <script type="text/javascript">
+      google.load('visualization', '1', {packages: ['corechart']});
+    </script>
+    
+    <meta charset="utf-8" />
+
+    <script src="js/drag.js"></script>
+    <script src="js/sketchpad.js"></script>
+    <script src="js/questions.js"></script>
+    <script src="js/IB_ClientConfig.js"></script>
+    
+
+    <!-- This is for Touchpad Style -->
+    <link rel="stylesheet" href="css/touchpad.css">
+    
+    
+    <!-- This is for Drag Style -->
+    <link rel="stylesheet" href="css/drag.css">
+
+  </head>
+  <body onkeypress="keyPressed(event);">
+  <div style="height: 45px;"></div>
+  <div id="sketchpads">
+    <div id="myPad"></div>
+  </div>
+
+
+
+  <div class="icon-bar-h" id="myTopnav">
+    <div id="answer-options-id">
+
+        
+      <div onclick="popup('id-search-menu');" class="dropdown"  style="background-color: green;">
+          <button class="dropbtn"><span id="total-questions-id"> Find</span>
+            <i class="fa fa-caret-down"></i>
+          </button>
+      </div>        
+
+        <a onclick="plusDivs(-1);"><i class='fas fa-angle-double-left'></i></a>
+
+        <a id="show-answer-id" onclick="popup(this.id);" style="display: none; background-color: green"><i class='fas fa-question' ></i></a>
+
+        <span id="show-mcq-id" style="display: none;">
+          <a id="mcq-A" name="mcq-objects" onclick="checkMCQAnswer(this, 'A');" style="padding: 10px 2px;"><i class="mcq-button" >A</i></a>
+          <a id="mcq-B" name="mcq-objects" onclick="checkMCQAnswer(this, 'B');" style="padding: 10px 2px;"><i class="mcq-button" >B</i></a>
+          <a id="mcq-C" name="mcq-objects" onclick="checkMCQAnswer(this, 'C');" style="padding: 10px 2px;"><i class="mcq-button" >C</i></a>
+          <a id="mcq-D" name="mcq-objects" onclick="checkMCQAnswer(this, 'D');" style="padding: 10px 2px;"><i class="mcq-button" >D</i></a>
+        </span>
+
+        <a onclick="plusDivs(1);"><i class='fas fa-angle-double-right'></i></a>
+        
+        <a id="id-answermode-menu" onclick="toggleAnswerMode();" class="dropdown"><i class="fas fa-check-square" style="color:red;"></i></a>
+        <a id="id-touch-menu" onclick="toggleTouch(this);" class="dropdown"><i class="fa fa-edit" style="color:red; "></i></a>
+    </div>
+
+    <div id="pdfs_id" class="dropdown">
+      <button class="dropbtn"> 
+        <i class="fa fa-download" style="color:white;"></i>
+      </button>
+      <div class="dropdown-content">
+          <a id="ms-papers-id" >QP</a>
+          <a id="qp-papers-id" >MS</a>
+          <a id="ot-papers-id" >Others</a>      
+      </div>
+    </div>
+
+
+
+  <a id="id-google-login" onclick="popup(this.id);">
+    <image id="user-profile-image-id" style="border-radius: 50%; width: 20px; display: none;"/>
+    <i id="user-profile-icon-id" style="font-size:15px; color: red;" class="fa">&#xf235;</i>
+  </a>  
+  
+  <a id="quiz-marks-id"></a>
+
+    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="responsiveView()">&#9776;</a>
+  </div>
+
+
+
+  <div class="icon-bar-hb">
+    <div id="subject-name-id" style="float:left; text-align:left; width: 35%;overflow:hidden;  white-space:nowrap; text-overflow:ellipsis;" >Chapter</div>
+    <div id="quiz-answer-id" style="float:left; text-align:left; width: 40%;" ></div>
+    <div id="question-name-id" style="float:right; text-align:right; width: 25%; color: darkorange;font-weight: bolder;" >Question No</div>
+  </div>
+
+  <!-- Spacer below end of page -->
+  <div style="height: 40px;"></div>
+
+  <div id="show-answer-id-popup" class="modal">
+    <div class="modal-content">
+        <span onClick="popup('show-answer-id');" class="close">&times;</span>
+      <div id="answer-panel" class="answer-panel"></div>
+    </div>
+  </div>
+  
+
+  
+  <div id="id-search-menu-popup" class="modal">
+        <div class="modal-content">
+          <span onClick="popup('id-search-menu');" class="close">&times;</span>
+          <form name="formSearch" onsubmit="return false;">
+          
+            <div class="row" >
+                <div class="column">
+                  Select:
+                      <input onclick="setSelection(this.value);" type="radio" name="selection" value="T" checked autofocus> Topic
+                      <input onclick="setSelection(this.value);" type="radio" name="selection" value="Y"> Year
+                      <input onclick="setSelection(this.value);" type="radio" name="selection" value="S"> Search
+
+                    <br/><select name="subjects" onChange="setSubject(this.options[this.selectedIndex].value)" ><option value="-1">Subjects</option></select>
+
+                    <div id="topic-view" style="display:block;">
+                      <br/>Chapters:
+                      <input onclick="setMatch(this.value);" type="radio" name="match" value="m0" > Best
+                      <input onclick="setMatch(this.value);" type="radio" name="match" value="m1"> Good
+                      <input onclick="setMatch(this.value);" type="radio" name="match" value="m" checked> Both
+                      
+                      <select name="chapters" onChange="setChapter(this.value)"><option value="-1">Chapters</option></select>
+                    </div>
+
+                    <div id="year-view" style="display:none;">
+                      <br/>Year:<select name="years" onChange="setYear(this.value)"><option value="-1">Years</option></select>
+                      Season:<select name="months" onChange="setMonth(this.value)"><option value="-1">Months</option></select>
+                    </div>
+
+
+                    <div id="non-search-view" style="display:block;">
+                      Papers:<select name="papers" onChange="setPaper(this.value)" ><option value="-1">Papers</option></select>
+                    </div>
+
+                    <div id="year-view2" style="display:none;">
+                      Zone:<select name="zones" onChange="setZone(this.value)"><option value="-1">Zones</option></select>
+                    </div>                  
+
+                    <div id="search-view" style="display:none;">
+                      <br/><input type="text" name="searchTerm" onkeypress="keyPressedIgnore(event);"></input>
+                      <input value="Search" type="button" onClick="loadQuestionsCount();"><br/><br/>
+                    </div>
+
+                    
+                    Questions: <span id="id-offset-count-status" style="color: red;"></span>
+                    <select name="offsets" onChange="setOffset(parseInt(this.value))" ><option value="-1">Questions</option></select><br>
+                </div>
+            </div>
+        <input type="button" name="loadQuestions" value="Load Questions" onClick="loadQuestionsReset(true);"></input></p>
+
+        </form>
+        
+          
+        </div>
+  </div>
+
+
+  <div id="id-loading-menu-popup" class="modal">
+        <div class="modal-content">
+          <span onClick="popup('id-loading-menu');" class="close">&times;</span>
+        
+          <h4>Loading ...</h4>
+          <center><div class="loader"></div></center>
+
+        </div>
+  </div>
+
+  <div id="id-google-login-popup" class="modal">
+        <div class="modal-content">
+          <span onClick="popup('id-google-login');" class="close">&times;</span>
+        
+          <h4>Google Sign in ...</h4>
+          <center>
+
+            <p><p><div id="status_id" style="color: red;"> Google Sign In is required !</status_id></div>
+
+            <p><div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-longtitle="true"></div>
+            <p><p><a onclick="signOut();" style="color:red;">Sign out</a>
+   
+   
+          </center>
+
+        </div>
+  </div>
+
+
+ <script type="text/javascript">
+
+
+      var profile = null;
+      var siteAccess = false;
+      
+      function onSignIn(googleUser) {
+
+        var status = document.getElementById("status_id");
+
+        // Useful data for your client-side scripts:
+        profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        var userImg = document.getElementById("user-profile-image-id");
+        userImg.src = profile.getImageUrl();
+        userImg.style.display = "block";
+        document.getElementById("user-profile-icon-id").style.display = "none";
+
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        
+        checkPermission();
+
+      }
+
+      function checkPermission() {
+        popup("id-google-login", "open");
+        var image = new Image();
+        var status = document.getElementById("status_id");
+        status.innerHTML = "Hi, "+profile.getName()+", please wait, Checking permissions ...";
+
+//         image.src = "https://drive.google.com/thumbnail?authuser=0&sz=w1024&id=1frOQrDtngWDSw4jgrjETYDKxIX89kfTB";
+        image.src = accessURL;
+        image.id = "test_id";
+
+        image.onload = function() {
+          status.innerHTML = "Hi, "+profile.getName()+", Authorization successful !";
+          popup("id-google-login", "close");
+          siteAccess = true;
+          loadData();
+          //window.location.replace("ib.html");
+        };           
+
+        image.onerror = function() {
+          siteAccess = false;
+          status.innerHTML = "Hi, "+profile.getName()+", Unable to access site, please make sure you have access by contacting Administrator";
+        };           
+
+      }
+
+    function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+          console.log('User signed out.');
+          document.getElementById("user-profile-icon-id").style.display = "block";
+          document.getElementById("user-profile-image-id").style.display = "none";
+          document.getElementById("status_id").innerHTML = "Google Sign In is required !";
+        });
+    }
+
+    function setSelection(sel) {
+      var vT = document.getElementById("topic-view");
+      var vY = document.getElementById("year-view");
+      var vY2 = document.getElementById("year-view2");
+      var vS = document.getElementById("search-view");
+      var vN = document.getElementById("non-search-view");
+
+      vT.style.display = "none";
+      vY.style.display = "none";
+      vY2.style.display = "none";
+      vS.style.display = "none";
+      vN.style.display = "none";
+
+      document.formSearch.loadQuestions.disabled = false;
+
+      if(sel == "T") {
+        vT.style.display = "block";
+        vN.style.display = "block";
+        page.search = "T";
+        document.getElementById("id-offset-count-status").innerHTML = "";
+      } else if(sel == "Y") {
+        vY.style.display = "block";
+        vN.style.display = "block";
+        vY2.style.display = "block";
+        page.search = "Y";
+        document.getElementById("id-offset-count-status").innerHTML = "";
+      } else {
+        vS.style.display = "block";
+        vN.style.display = "block";
+        page.search = "S";
+        document.getElementById("id-offset-count-status").innerHTML = "Tip:- For absolute search use quotes, Ex:  \"Gross Domestic Product\"";
+      }
+
+      setSubject(page.subjectCode);
+    }
+
+
+ </script>
+
+
+
+<script>
+function responsiveView() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "icon-bar-h") {
+    x.className += " responsive";
+  } else {
+    x.className = "icon-bar-h";
+  }
+}
+</script>    
+
+  </body>
+</html>
