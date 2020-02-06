@@ -6,7 +6,6 @@ var thumbURL = 'https://drive.google.com/thumbnail?authuser=0&sz=w1024&id=';
 
 var visualization;
 
-
 var imagePool = {};
 var page = {
     "loading": false,
@@ -1163,7 +1162,9 @@ function createPad(id) {
 
 function updateCanvas(index) {
     var yPos = 0;
+    
     var type = "questionPages";
+    
 
     // type: questionPages or answerPages
     var images = page.list[index].data[type];
