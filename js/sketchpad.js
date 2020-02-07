@@ -16,13 +16,15 @@
 
 
 // Set-up the canvas and add our event handlers after the page has loaded
-    function initCanvas(canvas, ctx) {
+    function initPad(myPad) {
         
-        myPad = document.getElementById("myPad");
-        if(this.canvas) this.canvas.remove();
+        this.myPad = myPad;
+        myPad.style = "max-height: " + (screen.height -50) + "px;";
+        this.canvas = myPad.children[0];
+
+        if (this.canvas.getContext)
+            this.ctx = canvas.getContext('2d');
         
-        this.canvas = canvas;
-        this.ctx = ctx;
         if(page.stylus) addTouchListeners();
     }
     
@@ -104,11 +106,9 @@
     } 
 
     // Clear the canvas context using the canvas width and height
-    function clearCanvas(canvas,ctx) {
+    function clearCanvas() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        updateCanvas("questionPages");
-
+        updateCanvas(page.slideIndex -1);
     }
 
     // Keep track of the mouse button being pressed and draw a dot at current location
