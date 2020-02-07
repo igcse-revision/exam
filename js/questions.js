@@ -1,5 +1,4 @@
 
-
 var driveURL = 'https://docs.google.com/uc?id=';
 var thumbURL = 'https://drive.google.com/thumbnail?authuser=0&sz=w1024&id=';
 
@@ -35,37 +34,6 @@ var mcqc = document.getElementById("mcq-C");
 var mcqd = document.getElementById("mcq-D");
 
 var subQSel = {};
-
-var popoversettings = {
-    trigger: 'click',
-    html: true,
-    title: function() {
-        var id = $(this).attr("id");
-        var opt = subQSel[id].option;
-        var wCheck = ""
-          , aCheck = ""
-          , rCheck = "";
-        if (opt == "w")
-            wCheck = "checked";
-        else if (opt == "a")
-            aCheck = "checked";
-        else
-            rCheck = "checked";
-        // var title = id+")"+
-        var title = "<input id='" + id + "_w' type='radio' name='show' value='w' " + wCheck + " onclick='showOption(\"" + id + "\", \"w\");'> Write" + "<input id='" + id + "_a' type='radio' name='show' value='a' " + aCheck + " onclick='showOption(\"" + id + "\", \"a\");'> Answer" + "<input id='" + id + "_r' type='radio' name='show' value='r' " + rCheck + " onclick='showOption(\"" + id + "\", \"r\");'> Report";
-
-        return title;
-    },
-    content: function() {
-        var id = $(this).attr("id");
-        var opt = subQSel[id].option;
-        $("#" + id + "_" + opt).prop("checked", true);
-        return subQSel[id][opt];
-    },
-    container: 'body',
-    placement: 'right'
-
-};
 
 
 function popup(srcId, action) {
@@ -114,14 +82,13 @@ function toggleAnswerMode() {
 
 function toggleTouch(src) {
 
-    var childNode = src.childNodes[0]
     if (page.stylus) {
         removeTouchListeners();
         page.stylus = false;
-        childNode.style.color = "white";
+        src.style.color = "white";
     } else {
         addTouchListeners();
-        childNode.style.color = "red";
+        src.style.color = "red";
         page.stylus = true;
     }
 }
@@ -238,7 +205,7 @@ function keyPressed(event) {
 function checkMCQAnswer(obj, value) {
     
     var ques = page.list[page.slideIndex - 1];
-    if (!ques) return;
+    if (!ques || !ques.isMCQ) return;
 
     ques.data["selected"] = value;
     
@@ -345,13 +312,24 @@ function resetMCQObjects() {
 
 }
 
-function showDivs(n) {
+function hidePads() {
+    
+    var len= document.getElementById("myPad").children.length;
+    for(var i=0; i<len;i++) {
+        document.getElementById("myPad").children[i].style.display = "none";
+    }
+}
 
+function showDivs(n) {
+    hidePads();
 
     if (!page.list || !page.list[page.slideIndex - 1]) {
         displayMessage("No Records !");
         return;
     }
+    var myPad = page.list[page.slideIndex - 1].draw.question;
+    myPad.style.display = "block";
+    initPad(myPad);
 
     // document.getElementById('config-page').style.display='block';
 
@@ -398,7 +376,7 @@ function showDivs(n) {
 
     displayMessage(pageData.questionName);
     displayPaperLinks();
-    updateCanvas("questionPages");
+    //updateCanvas("questionPages");
 }
 
 function updateQuizPanel(quizElement) {
@@ -536,7 +514,6 @@ function displayPaperLinks(openWin) {
 
 function displaySubQs(subQsStr, imgHFactor) {
 
-    $('[data-role="popover"]').popover('hide');
 
     var element = document.getElementsByClassName("subqReport"), index;
     for (index = element.length - 1; index >= 0; index--) {
@@ -626,14 +603,12 @@ function addDiv(id, pos, ans, report, re) {
     // x.appendChild(t);
 
     myPad.appendChild(dv);
-    $('[data-role="popover"]').popover(popoversettings);
+
 
 }
 
 function showOption(qid, opt) {
     subQSel[qid].option = opt;
-    $("#" + qid + "_" + opt).prop("checked", true);
-    $('[id="' + qid + '"]').popover('show');
 }
 
 //{"0625":{"y":{"2002":{"1":40}},"c":{"1":20}}
@@ -828,6 +803,7 @@ function loadQuestionsReset() {
     popup('id-search-menu');
     popup('id-loading-menu');
     
+    document.getElementById("myPad").innerHTML = "";
     page.list = {};
     page.slideIndex = page.offset + 1;
     document.getElementById("id-answermode-menu").childNodes[0].style.color = "red";;
@@ -1050,10 +1026,11 @@ function loadPageImages(pages, index) {
 
                 imagePool[id] = {
                     "image": image,
-                    "status": "pending"
+                    "status": "pending",
+                    "index": index+page.offset
                 };
 
-                // Store First Questio Index, so that page can be loaded without waiting for other images.
+                // Store First Question Index, so that page can be loaded without waiting for other images.
                 if (index == 0) {
                     if (imagePool["firstPage"] == undefined)
                         imagePool["firstPage"] = {};
@@ -1062,6 +1039,8 @@ function loadPageImages(pages, index) {
 
                 image.onload = function() {
                     imagePool[this.id].status = "done";
+                    updateCanvas(imagePool[this.id].index);
+                    
                     var fp = imagePool["firstPage"];
                     if (fp[this.id] == 0) {
                         delete fp[this.id];
@@ -1139,17 +1118,19 @@ function handleQuestionsResponse(response) {
         // record["questionPages"] = loadDrivePageImages(questionPages, i);
         // record["answerPages"] = loadDrivePageImages(answerPages, i);
 
-        record["questionPages"] = loadPageImages(questionPages, i);
-        record["answerPages"] = loadPageImages(answerPages, i);
-        
 
         page.list[stInd + i] = {
             "data": {},
             "draw": {
-                "question": createCanvas("sketchpad" + i),
-                "answer": createCanvas("sketchpad-answer" + i)
+                "question": createPad("sketchpad" + (i+page.offset))
             }
         };
+
+        record["questionPages"] = loadPageImages(questionPages, i);
+        record["answerPages"] = loadPageImages(answerPages, i);
+        
+
+
         page.list[stInd + i]["data"] = record;
     }
 
@@ -1161,10 +1142,14 @@ function handleQuestionsResponse(response) {
 
 }
 
-function createCanvas(id) {
-    var canvas = document.createElement('canvas');
+function createPad(id) {
 
-    canvas.id = id;
+    var pad = document.createElement("div");
+    pad.id = id;
+    document.getElementById("myPad").appendChild(pad);
+
+    var canvas = document.createElement('canvas');
+    canvas.id = id+"-canvas";
     canvas.className = "sketchpad";
     canvas.style.float = "left";
     canvas.style.maxWidth = "100%";
@@ -1173,29 +1158,35 @@ function createCanvas(id) {
     var ctx = null;
     if (canvas.getContext)
         ctx = canvas.getContext('2d');
-    return {
-        "canvas": canvas,
-        "ctx": ctx
-    };
+
+    pad.appendChild(canvas);
+    pad.style.display = "none";
+     
+    return pad;
 }
 
-function updateCanvas(type) {
+function updateCanvas(index) {
     var yPos = 0;
+    var type = "questionPages";
 
     // type: questionPages or answerPages
-    var images = page.list[page.slideIndex - 1].data[type];
-    var maxWidth = 0
-      , maxHeight = 0;
-    //if(canvas) canvas.remove();
-    var canvas = page.list[page.slideIndex - 1].draw.question.canvas;
-    var ctx = page.list[page.slideIndex - 1].draw.question.ctx;
+    var images = page.list[index].data[type];
+    var maxWidth = 0, maxHeight = 0;
 
-    initCanvas(canvas, ctx);
-    myPad.appendChild(canvas);
+    var myPad = page.list[index].draw.question;
+    var canvas = myPad.children[0];
+    var ctx = canvas.getContext('2d');
+
 
     // Double Look is required, the CANVAS can't take height adjustment, first calculate height and add all images.
     for (var i = 0; i < images.length; i++) {
         var image = imagePool[images[i].id].image;
+
+        if(!isImgOk(image)) {
+//             console.log(image.id+": Not loaded");
+            return;
+        }
+
         if (maxWidth < image.naturalWidth)
             maxWidth = image.naturalWidth;
         maxHeight += image.naturalHeight;
@@ -1212,17 +1203,10 @@ function updateCanvas(type) {
 
     for (var i = 0; i < images.length; i++) {
         var image = imagePool[images[i].id].image;
-        if(!isImgOk(image)) {
-            console.log("Image not Okay: "+page.slideIndex);
-        }
 
         ctx.drawImage(image, 0, yPos);
         yPos = yPos + parseInt(image.naturalHeight);
     }
-
-//     ctx.save();
-    page.list[page.slideIndex - 1].draw.question.ctx = ctx;
-    page.list[page.slideIndex - 1].draw.question.canvas = canvas;
 
     myPad.scrollTop = 0;
     window.scrollTo(0, 0);
@@ -1249,9 +1233,6 @@ function loadSubjectsData() {
 }
 
 function loadData() {
-
-    document.getElementById("myPad").style = "max-height: " + (screen.height -50) + "px;";
-
     loadSubjectsData();
     popup("id-search-menu");
 
