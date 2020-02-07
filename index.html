@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>IGCSE Revision</title>
+    <title>IGCSE Revision </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
@@ -41,7 +41,10 @@
   </head>
   <body onkeypress="keyPressed(event);">
   <div style="height: 45px;"></div>
-  <div id="myPad"></div>
+  <div id="sketchpads">
+    <div id="myPad"></div>
+  </div>
+
 
 
   <div class="icon-bar-h" id="myTopnav">
@@ -68,7 +71,15 @@
         <a onclick="plusDivs(1);"><i class='fas fa-angle-double-right'></i></a>
         
         <a id="id-answermode-menu" onclick="toggleAnswerMode();" class="dropdown"><i class="fas fa-check-square" style="color:red;"></i></a>
-        <a id="id-touch-menu" onclick="toggleTouch(this);" class="dropdown"><i class="fa fa-edit" style="color:red; "></i></a>
+        
+        <div class="dropdown">
+          <button class="dropbtn"> 
+            <i id="id-touch-menu" onclick="toggleTouch(this);" class="fa fa-edit" style="color:red; "></i>
+          </button>
+          <div class="dropdown-content">
+            <a onclick="clearCanvas()">Clear</a>
+          </div>
+        </div>
     </div>
 
     <div id="pdfs_id" class="dropdown">
