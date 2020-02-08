@@ -1,6 +1,7 @@
 
 var driveURL = 'https://docs.google.com/uc?id=';
-var thumbURL = 'https://drive.google.com/thumbnail?authuser=0&sz=w1024&id=';
+// var thumbURL = 'https://drive.google.com/thumbnail?authuser=0&sz=w1024&id=';
+var thumbURL = 'https://drive.google.com/uc?export=view&id=';
 
 // var driveURL = 'https://drive.google.com/open?id=';
 
@@ -258,8 +259,15 @@ function loadNext(n) {
 }
 
 function plusDivs(n) {
+
     var ind = page.slideIndex+n;
     if( ind > page.total || ind <= 0) return;
+
+    if (!page.list || !page.list[ind-1]) {
+        displayMessage("No Records !");
+        return;
+    }
+
     page.slideIndex = ind;
     //console.log("Page Subtotal: " + page.subTotal + ", Slide Index: " + page.slideIndex);
 
@@ -1062,6 +1070,10 @@ function loadPageImages(pages, index) {
                     imagePool[this.id].status = "error";
                     displayMessage("Unable to download");
                     console.log('Unable to load Image' + this.id);
+                    var myPad = page.list[index].draw.question;
+                    var status = myPad.children[0];
+                    status.innerHTML = "Error in downloding question: "+this.id;
+
                 }
                 ;
 
@@ -1144,9 +1156,15 @@ function handleQuestionsResponse(response) {
 
 function createPad(id) {
 
+    var myPad = document.getElementById("myPad"); 
     var pad = document.createElement("div");
     pad.id = id;
-    document.getElementById("myPad").appendChild(pad);
+    myPad.appendChild(pad);
+
+    var status = document.createElement("div");
+    status.id = id+"-status";
+    status.style.color = "red";
+    status.innerHTML = "Loading ...";
 
     var canvas = document.createElement('canvas');
     canvas.id = id+"-canvas";
@@ -1159,6 +1177,8 @@ function createPad(id) {
     if (canvas.getContext)
         ctx = canvas.getContext('2d');
 
+    // Maintain the same Order
+    pad.appendChild(status);
     pad.appendChild(canvas);
     pad.style.display = "none";
      
@@ -1174,8 +1194,9 @@ function updateCanvas(index) {
     var maxWidth = 0, maxHeight = 0;
 
     var myPad = page.list[index].draw.question;
-    var canvas = myPad.children[0];
+    var canvas = myPad.children[1];
     var ctx = canvas.getContext('2d');
+    var status = myPad.children[0];
 
 
     // Double Look is required, the CANVAS can't take height adjustment, first calculate height and add all images.
@@ -1186,6 +1207,8 @@ function updateCanvas(index) {
 //             console.log(image.id+": Not loaded");
             return;
         }
+
+        status.style.display = "none";
 
         if (maxWidth < image.naturalWidth)
             maxWidth = image.naturalWidth;
