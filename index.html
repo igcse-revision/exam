@@ -24,11 +24,15 @@
     </script>
     
     <meta charset="utf-8" />
-
+<!--
     <script src="js/drag.js"></script>
     <script src="js/sketchpad.js"></script>
     <script src="js/questions.js"></script>
     <script src="js/igcse_ClientConfig.js"></script>
+-->
+
+
+    <script src="js/igcse-revision-min.js"></script>
     
 
     <!-- This is for Touchpad Style -->
@@ -210,118 +214,6 @@
   </div>
 
 
- <script type="text/javascript">
-
-
-      var profile = null;
-      var siteAccess = false;
-      
-      function onSignIn(googleUser) {
-
-        var status = document.getElementById("status_id");
-
-        // Useful data for your client-side scripts:
-        profile = googleUser.getBasicProfile();
-        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-        console.log('Full Name: ' + profile.getName());
-        var userImg = document.getElementById("user-profile-image-id");
-        userImg.src = profile.getImageUrl();
-        userImg.style.display = "block";
-        document.getElementById("user-profile-icon-id").style.display = "none";
-
-        // The ID token you need to pass to your backend:
-        var id_token = googleUser.getAuthResponse().id_token;
-        
-        checkPermission();
-
-      }
-
-      function checkPermission() {
-        popup("id-google-login", "open");
-        var image = new Image();
-        var status = document.getElementById("status_id");
-        status.innerHTML = "Hi, "+profile.getName()+", please wait, Checking permissions ...";
-
-//         image.src = "https://drive.google.com/thumbnail?authuser=0&sz=w1024&id=1frOQrDtngWDSw4jgrjETYDKxIX89kfTB";
-        image.src = accessURL;
-        image.id = "test_id";
-
-        image.onload = function() {
-          status.innerHTML = "Hi, "+profile.getName()+", Authorization successful !";
-          popup("id-google-login", "close");
-          siteAccess = true;
-          loadData();
-          //window.location.replace("ib.html");
-        };           
-
-        image.onerror = function() {
-          siteAccess = false;
-          status.innerHTML = "Hi, "+profile.getName()+", Unable to access site, please make sure you have access by contacting Administrator";
-        };           
-
-      }
-
-    function signOut() {
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-          console.log('User signed out.');
-          document.getElementById("user-profile-icon-id").style.display = "block";
-          document.getElementById("user-profile-image-id").style.display = "none";
-          document.getElementById("status_id").innerHTML = "Google Sign In is required !";
-        });
-    }
-
-    function setSelection(sel) {
-      var vT = document.getElementById("topic-view");
-      var vY = document.getElementById("year-view");
-      var vY2 = document.getElementById("year-view2");
-      var vS = document.getElementById("search-view");
-      var vN = document.getElementById("non-search-view");
-
-      vT.style.display = "none";
-      vY.style.display = "none";
-      vY2.style.display = "none";
-      vS.style.display = "none";
-      vN.style.display = "none";
-
-      document.formSearch.loadQuestions.disabled = false;
-
-      if(sel == "T") {
-        vT.style.display = "block";
-        vN.style.display = "block";
-        page.search = "T";
-        document.getElementById("id-offset-count-status").innerHTML = "";
-      } else if(sel == "Y") {
-        vY.style.display = "block";
-        vN.style.display = "block";
-        vY2.style.display = "block";
-        page.search = "Y";
-        document.getElementById("id-offset-count-status").innerHTML = "";
-      } else {
-        vS.style.display = "block";
-        vN.style.display = "block";
-        page.search = "S";
-        document.getElementById("id-offset-count-status").innerHTML = "Tip:- For absolute search use quotes, Ex:  \"Gross Domestic Product\"";
-      }
-
-      setSubject(page.subjectCode);
-    }
-
-
- </script>
-
-
-
-<script>
-function responsiveView() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "icon-bar-h") {
-    x.className += " responsive";
-  } else {
-    x.className = "icon-bar-h";
-  }
-}
-</script>    
 
   </body>
 </html>
