@@ -20,7 +20,7 @@
         
         this.myPad = myPad;
         myPad.style = "max-height: " + (screen.height -50) + "px;";
-        this.canvas = myPad.children[0];
+        this.canvas = myPad.children[1];
 
         if (this.canvas.getContext)
             this.ctx = canvas.getContext('2d');
