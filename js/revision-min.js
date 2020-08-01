@@ -999,7 +999,6 @@ function loadQuestionsCount() {
 
 function handleQuestionsCountResponse(data) {
     var qButton = document.formSearch.loadQuestions;
-    var data = response.getDataTable();
 
     if (data == "ERROR") {
         document.getElementById("id-offset-count-status").innerHTML = "Error: " + response.getMessage();
@@ -1013,7 +1012,7 @@ function handleQuestionsCountResponse(data) {
         document.getElementById("id-offset-count-status").innerHTML = "Search returned NO results !";
     } else {
         qButton.disabled = false;
-        page.total = tot;
+        page.total = data.rows[0].c[0].v;
         document.getElementById("id-offset-count-status").innerHTML = page.total + " records found, click Load Questions button";
         populateOffset();
     }
@@ -1229,7 +1228,7 @@ function httpRequest(urlString, callback) {
             var data = JSON.parse(response.substring(response.indexOf('{'), response.lastIndexOf('}')+1));
             callback(data);
         } else {
-            callback("ERROR");
+            //callback("ERROR");
         }
     }
     ;
