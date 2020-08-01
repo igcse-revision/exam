@@ -990,16 +990,16 @@ function handleQuestionsCountResponse(response) {
 
 }
 
-function httpRequest() {
+function httpRequest(urlString, callback) {
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             // Typical action to be performed when the document is ready:
-            document.getElementById("demo").innerHTML = xhttp.responseText;
+            callback(xhttp.responseText);
         }
     };
-    xhttp.open("GET", "filename", true);
+    xhttp.open("GET", urlString, true);
     xhttp.send();
 
 }
@@ -1051,6 +1051,8 @@ function loadQuestions() {
     var newQuery = "https://docs.google.com/spreadsheets/d/"+ssKey+"/gviz/tqpub?"+"&pub=1&sheet=" + page.subjectCode+"tq="+qString;
 
     console.log("New Query: " + newQuery);
+
+    httpRequest(newQuery, handleQuestionsResponse);
 
     // Send the query with a callback function.
     //query.send(handleQuestionsResponse);
