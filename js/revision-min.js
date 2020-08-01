@@ -1259,27 +1259,27 @@ function handleQuestionsResponse(response) {
     for (var i = 0; i < tot; i++) {
         var colIndx = 0;
         var record = {};
-        record["code"] = data.table.rows[i].c[colIndx++];
-        record["Y"] = data.table.rows[i].c[colIndx++];
-        record["paper"] = data.table.rows[i].c[colIndx++];
-        record["zone"] = data.table.rows[i].c[colIndx++];
-        record["isMCQ"] = data.table.rows[i].c[colIndx++];
-        record["m0"] = data.table.rows[i].c[colIndx++];
-        record["m1"] = data.table.rows[i].c[colIndx++];
-        record["questionNo"] = data.table.rows[i].c[colIndx++];
-        record["questionName"] = data.table.rows[i].c[colIndx++];
+        record["code"] = data.table.rows[i].c[colIndx++].v;
+        record["Y"] = data.table.rows[i].c[colIndx++].v;
+        record["paper"] = data.table.rows[i].c[colIndx++].v;
+        record["zone"] = data.table.rows[i].c[colIndx++].v;
+        record["isMCQ"] = data.table.rows[i].c[colIndx++].v;
+        record["m0"] = data.table.rows[i].c[colIndx++].v;
+        record["m1"] = data.table.rows[i].c[colIndx++].v;
+        record["questionNo"] = data.table.rows[i].c[colIndx++].v;
+        record["questionName"] = data.table.rows[i].c[colIndx++].v;
         if (record["questionName"] && curriculum == "IB")
             record["questionName"] = record["questionName"].replace(/_/gmi, "/");
 
-        var questionPages = data.table.rows[i].c[colIndx++];
-        record["answer"] = data.table.rows[i].c[colIndx++];
+        var questionPages = data.table.rows[i].c[colIndx++].v;
+        record["answer"] = data.table.rows[i].c[colIndx++].v;
         record["mark"] = null;
-        var answerPages = data.table.rows[i].c[colIndx++];
-        record["subQs"] = data.table.rows[i].c[colIndx++];
+        var answerPages = data.table.rows[i].c[colIndx++].v;
+        record["subQs"] = data.table.rows[i].c[colIndx++].v;
 
-        record["qpIds"] = data.table.rows[i].c[colIndx++];
-        record["msIds"] = data.table.rows[i].c[colIndx++];
-        record["othersIds"] = data.table.rows[i].c[colIndx++];
+        record["qpIds"] = data.table.rows[i].c[colIndx++].v;
+        record["msIds"] = data.table.rows[i].c[colIndx++].v;
+        record["othersIds"] = data.table.rows[i].c[colIndx++].v;
 
         // record["questionPages"] = loadDrivePageImages(questionPages, i);
         // record["answerPages"] = loadDrivePageImages(answerPages, i);
