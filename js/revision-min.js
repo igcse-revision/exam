@@ -1270,22 +1270,21 @@ function handleQuestionsResponse(response) {
                 if (record["questionName"] && curriculum == "IB") record["questionName"] = record["questionName"].replace(/_/gmi, "/");
             }
 
-
-            page.list[stInd + i] = {
-                "data": {},
-                "draw": {
-                    "question": createPad("sketchpad" + (i + page.offset))
-                }
-            };
-
-
-            if(colArr[j] == "questionPages" || colArr[j] == "answerPages") {
-                record[colArr[j]] = loadPageImages(record[colArr[j]], i);
-            }
-
-            page.list[stInd + i]["data"] = record;
-
         }
+
+        page.list[stInd + i] = {
+            "data": {},
+            "draw": {
+                "question": createPad("sketchpad" + (i + page.offset))
+            }
+        };
+
+
+        record["questionPages"] = loadPageImages(record["questionPages"], i);
+        record["answerPages"] = loadPageImages(record["questionPages"], i);
+
+        page.list[stInd + i]["data"] = record;
+
 
 //         record["code"] = data.table.rows[i].c[colIndx++].v;
 //         record["Y"] = data.table.rows[i].c[colIndx++].v;
