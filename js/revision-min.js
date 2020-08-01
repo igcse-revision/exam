@@ -984,31 +984,26 @@ function loadQuestionsCount() {
     var qButton = document.formSearch.loadQuestions;
     qButton.disabled = true;
     document.getElementById("id-offset-count-status").innerHTML = "Fetching Count, please wait ...";
+
+    var query = new google.visualization.Query('http://spreadsheets.google.com/tq?key=' + ssKey + '&pub=1&sheet=' + page.subjectCode);
     var qString = "SELECT COUNT(M) " + getSearchQueryWhere();
 
-//     var query = new google.visualization.Query('http://spreadsheets.google.com/tq?key=' + ssKey + '&pub=1&sheet=' + page.subjectCode);
-//     query.setQuery(qString);
-//     console.log("Query: " + qString);
-//     query.send(handleQuestionsCountResponse);
+    query.setQuery(qString);
+    console.log("Query: " + qString);
 
-    var newQuery = "https://docs.google.com/spreadsheets/d/" + ssKey + "/gviz/tqpub?" + "pub=1&sheet=" + page.subjectCode + "&tq=" + encodeURIComponent(qString);
-    console.log("New Query: " + newQuery);
-    httpRequest(newQuery, handleQuestionsCountResponse);
-
+    // Send the query with a callback function.
+    query.send(handleQuestionsCountResponse);
 }
 
-function handleQuestionsCountResponse(data) {
+function handleQuestionsCountResponse(response) {
     var qButton = document.formSearch.loadQuestions;
+    var data = response.getDataTable();
 
-    if (data == "ERROR") {
+    if (response.isError()) {
         document.getElementById("id-offset-count-status").innerHTML = "Error: " + response.getMessage();
         return;
     }
-
-    var tot = data.table.rows.length;
-
-
-    if (tot == 0) {
+    if (data.getNumberOfRows() == 0) {
         page.total = 0;
         document.getElementById("id-offset-count-status").innerHTML = "Search returned NO results !";
     } else {
@@ -1062,7 +1057,9 @@ function loadQuestions() {
     query.setQuery(qString);
 
     var newQuery = "https://docs.google.com/spreadsheets/d/" + ssKey + "/gviz/tqpub?" + "pub=1&sheet=" + page.subjectCode + "&tq=" + encodeURIComponent(qString);
+
     console.log("New Query: " + newQuery);
+
     httpRequest(newQuery, handleQuestionsResponse);
 
     // Send the query with a callback function.
@@ -1225,7 +1222,7 @@ function httpRequest(urlString, callback) {
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             // Typical action to be performed when the document is ready:
-            var response = xhttp.responseText;
+            var response = xhttp.responseText
             var data = JSON.parse(response.substring(response.indexOf('{'), response.lastIndexOf('}')+1));
             callback(data);
         } else {
@@ -1249,6 +1246,7 @@ function handleQuestionsResponse(data) {
     var offsets = document.formSearch.offsets, yearOffsets = document.formSearch.offsets;
     offsets.value = offset,
     yearOffsets.value = offset;
+    
 
 //      var data = JSON.parse(response.substring(response.indexOf('{'), response.lastIndexOf('}')+1));
      var tot = data.table.rows.length;
@@ -1291,6 +1289,8 @@ function handleQuestionsResponse(data) {
         page.list[stInd + i]["data"] = record;
 
     }
+
+
 
 }
 
