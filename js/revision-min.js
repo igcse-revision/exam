@@ -1257,7 +1257,7 @@ function handleQuestionsResponse(response) {
     var stInd = page.offset;
     page["subTotal"] = stInd + tot;
 
-    var colArr = ["code", "Y", "paper", "zone", "isMCQ", "m0", "m1", "questionNo", "questionName", "questionPages", "answer", "mark", "answerPages", "qpIds", "msIds", "othersIds"];
+    var colArr = ["code", "Y", "paper", "zone", "isMCQ", "m0", "m1", "questionNo", "questionName", "questionPages", "answer", "answerPages", "keyWords", "qpIds", "msIds", "othersIds", "month"];
     for (var i = 0; i < tot; i++) {
         var colIndx = 0;
         var record = {};
