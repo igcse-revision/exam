@@ -1012,7 +1012,7 @@ function handleQuestionsCountResponse(data) {
         document.getElementById("id-offset-count-status").innerHTML = "Search returned NO results !";
     } else {
         qButton.disabled = false;
-        page.total = data.rows[0].c[0].v;
+        page.total = data.table.rows[0].c[0].v;
         document.getElementById("id-offset-count-status").innerHTML = page.total + " records found, click Load Questions button";
         populateOffset();
     }
