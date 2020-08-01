@@ -1281,7 +1281,7 @@ function handleQuestionsResponse(response) {
 
 
         record["questionPages"] = loadPageImages(record["questionPages"], i);
-        record["answerPages"] = loadPageImages(record["questionPages"], i);
+        record["answerPages"] = loadPageImages(record["answerPages"], i);
 
         page.list[stInd + i]["data"] = record;
 
