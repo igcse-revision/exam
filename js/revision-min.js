@@ -1035,7 +1035,7 @@ function loadQuestions() {
 
     query.setQuery(qString);
     
-    var newQuery = "https://docs.google.com/spreadsheets/d/"+ssKey+"/gviz/tqpub?"+"&pub=1&sheet=" + page.subjectCode+"tq="+qString;
+    var newQuery = "https://docs.google.com/spreadsheets/d/"+ssKey+"/gviz/tqpub?"+"&pub=1&sheet=" + page.subjectCode+"tq="+encodeURIComponent(qString);
 
     console.log("New Query: " + newQuery);
 
