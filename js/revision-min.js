@@ -1222,7 +1222,7 @@ function httpRequest(urlString, callback) {
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             // Typical action to be performed when the document is ready:
-            callback(eval(xhttp.responseText));
+            callback(xhttp.responseText);
         } else {//callback("Error");
         }
     }
@@ -1245,9 +1245,9 @@ function handleQuestionsResponse(response) {
     offsets.value = offset,
     yearOffsets.value = offset;
 
-    //     var data = new google.visualization.DataTable(eval(response));
+     var data = new google.visualization.DataTable(response.substring(response.indexOf('{'), response.lastIndexOf('}')+1));
 
-    var data = response.getDataTable();
+//     var data = response.getDataTable();
     //imagePool = {};
     var questionHTML = "";
     //page.list = {};
