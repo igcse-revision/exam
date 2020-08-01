@@ -997,6 +997,8 @@ function httpRequest(urlString, callback) {
         if (this.readyState == 4 && this.status == 200) {
             // Typical action to be performed when the document is ready:
             callback(xhttp.responseText);
+        } else {
+            callback("Error");
         }
     };
     xhttp.open("GET", urlString, true);
@@ -1216,7 +1218,7 @@ function loadPageImages(pages, index) {
 
 function handleQuestionsResponse(response) {
     page.loading = false;
-    if (response.isError()) {
+    if (response && response == "ERROR") {
         // alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
         displayMessage(response.getDetailedMessage());
         return;
