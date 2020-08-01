@@ -999,7 +999,11 @@ function loadQuestions() {
         return;
     }
 
-    var query = new google.visualization.Query('http://spreadsheets.google.com/tq?key=' + ssKey + '&pub=1&sheet=' + page.subjectCode);
+    var user = gapi.auth2.getAuthInstance().currentUser.get();
+    var oauthToken = user.getAuthResponse().access_token;
+    var access_token = encodeURIComponent(oauthToken);
+
+    var query = new google.visualization.Query('http://spreadsheets.google.com/tq?access_token='+access_token+'&key=' + ssKey + '&pub=1&sheet=' + page.subjectCode);
     // Apply query language.
 
     var qString = "SELECT * WHERE  C = '" + page.paperCode;
