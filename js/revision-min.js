@@ -990,6 +990,20 @@ function handleQuestionsCountResponse(response) {
 
 }
 
+function httpRequest() {
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            // Typical action to be performed when the document is ready:
+            document.getElementById("demo").innerHTML = xhttp.responseText;
+        }
+    };
+    xhttp.open("GET", "filename", true);
+    xhttp.send();
+
+}
+
 function loadQuestions() {
 
     displayMessage("Loading ...");
@@ -1003,7 +1017,8 @@ function loadQuestions() {
     var oauthToken = user.getAuthResponse().access_token;
     var access_token = encodeURIComponent(oauthToken);
 
-    var query = new google.visualization.Query('http://spreadsheets.google.com/tq?access_token='+access_token+'&origin=*&key=' + ssKey + '&pub=1&sheet=' + page.subjectCode);
+
+    var query = new google.visualization.Query('http://spreadsheets.google.com/tq?access_token='+access_token+'&key=' + ssKey + '&pub=1&sheet=' + page.subjectCode);
     // Apply query language.
 
     var qString = "SELECT * WHERE  C = '" + page.paperCode;
@@ -1032,10 +1047,13 @@ function loadQuestions() {
     qString = qString + orderBy + page.limit + " OFFSET " + page.offset;
 
     query.setQuery(qString);
-    console.log("Query: " + qString);
+    
+    var newQuery = "https://docs.google.com/spreadsheets/d/"+ssKey+"/gviz/tqpub?"+"&pub=1&sheet=" + page.subjectCode+"tq="+qString;
+
+    console.log("New Query: " + newQuery);
 
     // Send the query with a callback function.
-    query.send(handleQuestionsResponse);
+    //query.send(handleQuestionsResponse);
 
 }
 
