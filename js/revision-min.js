@@ -1228,7 +1228,7 @@ function handleQuestionsResponse(response) {
     offsets.value = offset,
     yearOffsets.value = offset;
 
-    var data = new google.visualization.DataTable(response);
+    var data = new google.visualization.DataTable(eval(response));
 
     //var data = response.getDataTable();
     //imagePool = {};
