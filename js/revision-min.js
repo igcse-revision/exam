@@ -1256,45 +1256,73 @@ function handleQuestionsResponse(response) {
 
     var stInd = page.offset;
     page["subTotal"] = stInd + tot;
+
+    var colArr = ["code", "Y", "paper", "zone", "isMCQ", "m0", "m1", "questionNo", "questionName", "questionPages", "answer", "mark", "answerPages", "qpIds", "msIds", "othersIds"];
     for (var i = 0; i < tot; i++) {
         var colIndx = 0;
         var record = {};
-        record["code"] = data.table.rows[i].c[colIndx++].v;
-        record["Y"] = data.table.rows[i].c[colIndx++].v;
-        record["paper"] = data.table.rows[i].c[colIndx++].v;
-        record["zone"] = data.table.rows[i].c[colIndx++].v;
-        record["isMCQ"] = data.table.rows[i].c[colIndx++].v;
-        record["m0"] = data.table.rows[i].c[colIndx++].v;
-        record["m1"] = data.table.rows[i].c[colIndx++].v;
-        record["questionNo"] = data.table.rows[i].c[colIndx++].v;
-        record["questionName"] = data.table.rows[i].c[colIndx++].v;
-        if (record["questionName"] && curriculum == "IB")
-            record["questionName"] = record["questionName"].replace(/_/gmi, "/");
 
-        var questionPages = data.table.rows[i].c[colIndx++].v;
-        record["answer"] = data.table.rows[i].c[colIndx++].v;
-        record["mark"] = null;
-        var answerPages = data.table.rows[i].c[colIndx++].v;
-        record["subQs"] = data.table.rows[i].c[colIndx++].v;
+        for(var j=0; j<colArr.length; j++) {
+            if(data.table.rows[i].c[j] == null) continue;
+            record[colArr[j]] = data.table.rows[i].c[j].v;
 
-        record["qpIds"] = data.table.rows[i].c[colIndx++].v;
-        record["msIds"] = data.table.rows[i].c[colIndx++].v;
-        record["othersIds"] = data.table.rows[i].c[colIndx++].v;
-
-        // record["questionPages"] = loadDrivePageImages(questionPages, i);
-        // record["answerPages"] = loadDrivePageImages(answerPages, i);
-
-        page.list[stInd + i] = {
-            "data": {},
-            "draw": {
-                "question": createPad("sketchpad" + (i + page.offset))
+            if(colArr[j] == "questionName") {
+                if (record["questionName"] && curriculum == "IB") record["questionName"] = record["questionName"].replace(/_/gmi, "/");
             }
-        };
 
-        record["questionPages"] = loadPageImages(questionPages, i);
-        record["answerPages"] = loadPageImages(answerPages, i);
 
-        page.list[stInd + i]["data"] = record;
+            page.list[stInd + i] = {
+                "data": {},
+                "draw": {
+                    "question": createPad("sketchpad" + (i + page.offset))
+                }
+            };
+
+
+            if(colArr[j] == "questionPages" || colArr[j] == "answerPages") {
+                record[colArr[j]] = loadPageImages(record[colArr[j]], i);
+            }
+
+            page.list[stInd + i]["data"] = record;
+
+        }
+
+//         record["code"] = data.table.rows[i].c[colIndx++].v;
+//         record["Y"] = data.table.rows[i].c[colIndx++].v;
+//         record["paper"] = data.table.rows[i].c[colIndx++].v;
+//         record["zone"] = data.table.rows[i].c[colIndx++].v;
+//         record["isMCQ"] = data.table.rows[i].c[colIndx++].v;
+//         record["m0"] = data.table.rows[i].c[colIndx++].v;
+//         record["m1"] = data.table.rows[i].c[colIndx++].v;
+//         record["questionNo"] = data.table.rows[i].c[colIndx++].v;
+//         record["questionName"] = data.table.rows[i].c[colIndx++].v;
+//         if (record["questionName"] && curriculum == "IB")
+//             record["questionName"] = record["questionName"].replace(/_/gmi, "/");
+
+//         var questionPages = data.table.rows[i].c[colIndx++].v;
+//         record["answer"] = data.table.rows[i].c[colIndx++].v;
+//         record["mark"] = null;
+//         var answerPages = data.table.rows[i].c[colIndx++].v;
+//         record["subQs"] = data.table.rows[i].c[colIndx++].v;
+
+//         record["qpIds"] = data.table.rows[i].c[colIndx++].v;
+//         record["msIds"] = data.table.rows[i].c[colIndx++].v;
+//         record["othersIds"] = data.table.rows[i].c[colIndx++].v;
+
+//         // record["questionPages"] = loadDrivePageImages(questionPages, i);
+//         // record["answerPages"] = loadDrivePageImages(answerPages, i);
+
+//         page.list[stInd + i] = {
+//             "data": {},
+//             "draw": {
+//                 "question": createPad("sketchpad" + (i + page.offset))
+//             }
+//         };
+
+//         record["questionPages"] = loadPageImages(questionPages, i);
+//         record["answerPages"] = loadPageImages(answerPages, i);
+
+//         page.list[stInd + i]["data"] = record;
     }
 
     //   if(page.subTotal > 0) {
