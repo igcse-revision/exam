@@ -990,21 +990,6 @@ function handleQuestionsCountResponse(response) {
 
 }
 
-function httpRequest(urlString, callback) {
-
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            // Typical action to be performed when the document is ready:
-            callback(xhttp.responseText);
-        } else {
-            callback("Error");
-        }
-    };
-    xhttp.open("GET", urlString, true);
-    xhttp.send();
-
-}
 
 function loadQuestions() {
 
@@ -1215,6 +1200,21 @@ function loadPageImages(pages, index) {
     return pageArr;
 }
 
+function httpRequest(urlString, callback) {
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            // Typical action to be performed when the document is ready:
+            callback(xhttp.responseText);
+        } else {
+            //callback("Error");
+        }
+    };
+    xhttp.open("GET", urlString, true);
+    xhttp.send();
+
+}
 
 function handleQuestionsResponse(response) {
     page.loading = false;
@@ -1228,7 +1228,9 @@ function handleQuestionsResponse(response) {
     offsets.value = offset,
     yearOffsets.value = offset;
 
-    var data = response.getDataTable();
+    var data = new google.visualization.DataTable(response);
+
+    //var data = response.getDataTable();
     //imagePool = {};
     var questionHTML = "";
     //page.list = {};
