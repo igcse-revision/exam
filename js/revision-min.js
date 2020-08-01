@@ -1245,39 +1245,41 @@ function handleQuestionsResponse(response) {
     offsets.value = offset,
     yearOffsets.value = offset;
 
-     var data = new google.visualization.DataTable(response.substring(response.indexOf('{'), response.lastIndexOf('}')+1));
+     var data = JSON.parse(response.substring(response.indexOf('{'), response.lastIndexOf('}')+1));
+     var tot = data.table.rows.length;
 
 //     var data = response.getDataTable();
     //imagePool = {};
+
     var questionHTML = "";
     //page.list = {};
 
     var stInd = page.offset;
-    page["subTotal"] = stInd + data.getNumberOfRows();
-    var tot = data.getNumberOfRows();
+    page["subTotal"] = stInd + tot;
     for (var i = 0; i < tot; i++) {
+        var colIndx = 0;
         var record = {};
-        record["code"] = data.getValue(i, 0);
-        record["Y"] = data.getValue(i, 1);
-        record["paper"] = data.getValue(i, 2);
-        record["zone"] = data.getValue(i, 3);
-        record["isMCQ"] = data.getValue(i, 4);
-        record["m0"] = data.getValue(i, 5);
-        record["m1"] = data.getValue(i, 6);
-        record["questionNo"] = data.getValue(i, 7);
-        record["questionName"] = data.getValue(i, 8);
+        record["code"] = data.table.rows[i].c[colIndx++];
+        record["Y"] = data.table.rows[i].c[colIndx++];
+        record["paper"] = data.table.rows[i].c[colIndx++];
+        record["zone"] = data.table.rows[i].c[colIndx++];
+        record["isMCQ"] = data.table.rows[i].c[colIndx++];
+        record["m0"] = data.table.rows[i].c[colIndx++];
+        record["m1"] = data.table.rows[i].c[colIndx++];
+        record["questionNo"] = data.table.rows[i].c[colIndx++];
+        record["questionName"] = data.table.rows[i].c[colIndx++];
         if (record["questionName"] && curriculum == "IB")
             record["questionName"] = record["questionName"].replace(/_/gmi, "/");
 
-        var questionPages = data.getValue(i, 9);
-        record["answer"] = data.getValue(i, 10);
+        var questionPages = data.table.rows[i].c[colIndx++];
+        record["answer"] = data.table.rows[i].c[colIndx++];
         record["mark"] = null;
-        var answerPages = data.getValue(i, 11);
-        record["subQs"] = data.getValue(i, 12);
+        var answerPages = data.table.rows[i].c[colIndx++];
+        record["subQs"] = data.table.rows[i].c[colIndx++];
 
-        record["qpIds"] = data.getValue(i, 13);
-        record["msIds"] = data.getValue(i, 14);
-        record["othersIds"] = data.getValue(i, 15);
+        record["qpIds"] = data.table.rows[i].c[colIndx++];
+        record["msIds"] = data.table.rows[i].c[colIndx++];
+        record["othersIds"] = data.table.rows[i].c[colIndx++];
 
         // record["questionPages"] = loadDrivePageImages(questionPages, i);
         // record["answerPages"] = loadDrivePageImages(answerPages, i);
