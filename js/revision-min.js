@@ -984,31 +984,36 @@ function loadQuestionsCount() {
     var qButton = document.formSearch.loadQuestions;
     qButton.disabled = true;
     document.getElementById("id-offset-count-status").innerHTML = "Fetching Count, please wait ...";
-
-    var query = new google.visualization.Query('http://spreadsheets.google.com/tq?key=' + ssKey + '&pub=1&sheet=' + page.subjectCode);
     var qString = "SELECT COUNT(M) " + getSearchQueryWhere();
 
-    query.setQuery(qString);
-    console.log("Query: " + qString);
+//     var query = new google.visualization.Query('http://spreadsheets.google.com/tq?key=' + ssKey + '&pub=1&sheet=' + page.subjectCode);
+//     query.setQuery(qString);
+//     console.log("Query: " + qString);
+//     query.send(handleQuestionsCountResponse);
 
-    // Send the query with a callback function.
-    query.send(handleQuestionsCountResponse);
+    var newQuery = "https://docs.google.com/spreadsheets/d/" + ssKey + "/gviz/tqpub?" + "pub=1&sheet=" + page.subjectCode + "&tq=" + encodeURIComponent(qString);
+    console.log("New Query: " + newQuery);
+    httpRequest(newQuery, handleQuestionsCountResponse);
+
 }
 
-function handleQuestionsCountResponse(response) {
+function handleQuestionsCountResponse(data) {
     var qButton = document.formSearch.loadQuestions;
     var data = response.getDataTable();
 
-    if (response.isError()) {
+    if (data == "ERROR") {
         document.getElementById("id-offset-count-status").innerHTML = "Error: " + response.getMessage();
         return;
     }
-    if (data.getNumberOfRows() == 0) {
+
+    var tot = data.table.rows.length;
+
+    if (tot == 0) {
         page.total = 0;
         document.getElementById("id-offset-count-status").innerHTML = "Search returned NO results !";
     } else {
         qButton.disabled = false;
-        page.total = data.getValue(0, 0);
+        page.total = tot;
         document.getElementById("id-offset-count-status").innerHTML = page.total + " records found, click Load Questions button";
         populateOffset();
     }
@@ -1057,9 +1062,7 @@ function loadQuestions() {
     query.setQuery(qString);
 
     var newQuery = "https://docs.google.com/spreadsheets/d/" + ssKey + "/gviz/tqpub?" + "pub=1&sheet=" + page.subjectCode + "&tq=" + encodeURIComponent(qString);
-
     console.log("New Query: " + newQuery);
-
     httpRequest(newQuery, handleQuestionsResponse);
 
     // Send the query with a callback function.
@@ -1247,15 +1250,8 @@ function handleQuestionsResponse(data) {
     offsets.value = offset,
     yearOffsets.value = offset;
     
-
-//      var data = JSON.parse(response.substring(response.indexOf('{'), response.lastIndexOf('}')+1));
-     var tot = data.table.rows.length;
-
-//     var data = response.getDataTable();
-    //imagePool = {};
-
+    var tot = data.table.rows.length;
     var questionHTML = "";
-    //page.list = {};
 
     var stInd = page.offset;
     page["subTotal"] = stInd + tot;
